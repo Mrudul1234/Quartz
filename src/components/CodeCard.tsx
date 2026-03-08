@@ -1,8 +1,7 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { useQuartzStore } from '@/store/useQuartzStore';
 import { themes, codeFonts, cardWidthPresets } from '@/lib/themes';
 import { tokenizeLine, getTokenColor, detectLanguage } from '@/lib/highlighter';
-import { use3DTilt } from '@/hooks/use3DTilt';
 
 interface CodeCardProps {
   cardRef: React.RefObject<HTMLDivElement>;
@@ -15,19 +14,11 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   const cardWidth = cardWidthPresets[store.cardWidthIndex];
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const codeContainerRef = useRef<HTMLDivElement>(null);
-  const { cardRef: tiltRef, glareRef, handleMouseMove, handleMouseLeave } = use3DTilt();
 
   const lines = store.code.split('\n');
 
-  // Sync tiltRef with cardRef
-  useEffect(() => {
-    if (cardRef.current) {
-      (tiltRef as React.MutableRefObject<HTMLDivElement | null>).current = cardRef.current;
-    }
-  }, [cardRef, tiltRef]);
-
   // Global paste handler
-  useEffect(() => {
+  React.useEffect(() => {
     const handler = (e: ClipboardEvent) => {
       if (document.activeElement === textareaRef.current) return;
       const text = e.clipboardData?.getData('text');
@@ -64,32 +55,28 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   return (
     <div
       ref={cardRef}
-      className={`code-card card-frame tilt-card ${cardStyleClass}`}
+      className={`code-card card-frame ${cardStyleClass}`}
       onClick={handleCardClick}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       style={{
         background: store.backgroundStyle,
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
         width: cardWidth.width,
         minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '560px',
-        transition: 'transform 0.1s ease',
+        overflow: 'visible',
       }}
     >
-      {/* Glare overlay */}
-      <div ref={glareRef} className="tilt-glare" />
-
       <div
+        className="vscode-win"
         style={{
           background: theme.bg,
           borderRadius: `${Math.max(store.borderRadius - 4, 0)}px`,
-          overflow: 'hidden',
+          overflow: 'visible',
           position: 'relative',
           zIndex: 1,
         }}
       >
-        {/* Window Chrome — glass header */}
+        {/* Window Chrome */}
         {store.showWindowChrome && (
           <div className="vscode-header">
             <div className="flex gap-2">
@@ -100,15 +87,15 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             <input
               value={store.filename}
               onChange={(e) => store.setFilename(e.target.value)}
-              className={`bg-transparent text-xs ${font.className} ml-2 outline-none border-none`}
-              style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 500, fontSize: '12px' }}
+              className={`bg-transparent text-xs ${font.className} ml-2 outline-none border-none filename-tab`}
+              style={{ color: 'rgba(255,255,255,0.38)', fontWeight: 500, fontSize: '12px' }}
               onClick={(e) => e.stopPropagation()}
             />
           </div>
         )}
 
         {/* Code Area */}
-        <div className="relative" style={{ padding: '20px 24px', minHeight: '280px', minWidth: '380px' }}>
+        <div className="vscode-body relative" style={{ padding: '14px 24px 18px 16px', minHeight: '280px', minWidth: '380px' }}>
           {store.showLineNumbers && (
             <div
               className="absolute top-0 bottom-0"
@@ -122,8 +109,8 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
 
           <div
             ref={codeContainerRef}
-            className={`${font.className} select-none pointer-events-none overflow-hidden`}
-            style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight }}
+            className={`${font.className} select-none pointer-events-none`}
+            style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight, overflow: 'visible' }}
           >
             {lines.map((line, i) => (
               <div key={i} className="flex" style={{ minHeight: `${store.fontSize * store.lineHeight}px` }}>
@@ -135,7 +122,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
                     {i + 1}
                   </span>
                 )}
-                <code style={{ display: 'inline', whiteSpace: 'pre' }}>
+                <code style={{ display: 'inline', whiteSpace: 'pre', overflow: 'visible', maxWidth: 'none', width: 'max-content', paddingRight: '24px' }}>
                   {tokenizeLine(line, store.language).map((token, j) => (
                     <span key={j} style={{ color: getTokenColor(token.type, theme) }}>
                       {token.text}

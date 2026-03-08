@@ -6,10 +6,12 @@ export function buildExportClone(original: HTMLElement): HTMLElement {
   clone.style.position = 'fixed';
   clone.style.top = '-99999px';
   clone.style.left = '-99999px';
-  clone.style.width = original.offsetWidth + 'px';
-  clone.style.height = original.offsetHeight + 'px';
+  clone.style.width = original.scrollWidth + 'px';
+  clone.style.height = original.scrollHeight + 'px';
   clone.style.overflow = 'visible';
   clone.style.transform = 'none';
+  clone.style.maxWidth = 'none';
+  clone.style.maxHeight = 'none';
 
   // Flatten every span
   clone.querySelectorAll('span').forEach((span) => {
@@ -18,6 +20,7 @@ export function buildExportClone(original: HTMLElement): HTMLElement {
     span.style.transform = 'none';
     span.style.whiteSpace = 'pre';
     span.style.verticalAlign = 'baseline';
+    span.style.overflow = 'visible';
   });
 
   // Fix pre/code blocks
@@ -29,6 +32,16 @@ export function buildExportClone(original: HTMLElement): HTMLElement {
     e.style.wordWrap = 'normal';
     e.style.transform = 'none';
     e.style.position = 'static';
+    e.style.maxWidth = 'none';
+    e.style.width = 'auto';
+  });
+
+  // Fix card containers
+  clone.querySelectorAll('.card-frame, .vscode-win, .vscode-body').forEach((el) => {
+    const e = el as HTMLElement;
+    e.style.overflow = 'visible';
+    e.style.maxWidth = 'none';
+    e.style.width = 'auto';
   });
 
   // Remove textarea overlays from clone
@@ -44,7 +57,8 @@ export async function captureElement(original: HTMLElement): Promise<HTMLCanvasE
   document.body.appendChild(clone);
 
   await new Promise(r => requestAnimationFrame(r));
-  await new Promise(r => setTimeout(r, 80));
+  await new Promise(r => requestAnimationFrame(r));
+  await new Promise(r => setTimeout(r, 120));
 
   const canvas = await html2canvas(clone, {
     scale: 2,
@@ -53,6 +67,12 @@ export async function captureElement(original: HTMLElement): Promise<HTMLCanvasE
     backgroundColor: null,
     logging: false,
     foreignObjectRendering: false,
+    width: clone.scrollWidth,
+    height: clone.scrollHeight,
+    x: 0,
+    y: 0,
+    windowWidth: clone.scrollWidth,
+    windowHeight: clone.scrollHeight,
   });
 
   document.body.removeChild(clone);

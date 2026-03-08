@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuartzStore } from '@/store/useQuartzStore';
 import { themes, gradientPresets, platformPresets, codeFonts, cardWidthPresets, extMap } from '@/lib/themes';
-import { captureElement } from '@/lib/exportUtils';
+import { drawExportCanvas } from '@/lib/exportCanvas';
 import ActionButton from '@/components/ui/action-button';
 import { Download, Copy, ClipboardCheck, Settings, ExternalLink } from 'lucide-react';
 import {
@@ -34,13 +34,33 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
   const [gistUrl, setGistUrl] = useState('');
   const [gistPending, setGistPending] = useState(false);
 
+  function getExportConfig() {
+    const theme = themes[store.themeIndex];
+    const font = codeFonts[store.fontIndex];
+    return {
+      code: store.code,
+      language: store.language,
+      theme,
+      filename: store.filename,
+      fontFamily: font.name,
+      fontSize: store.fontSize,
+      lineHeight: store.lineHeight,
+      padding: store.padding,
+      borderRadius: store.borderRadius,
+      cardBg: store.backgroundStyle,
+      showLineNumbers: store.showLineNumbers,
+      showWindowChrome: store.showWindowChrome,
+      shadow: store.showShadow,
+      showWatermark: store.showWatermark,
+      scale: 2,
+    };
+  }
+
   async function doExport(format: 'png' | 'jpg') {
     const setter = format === 'png' ? setPngPending : setJpgPending;
     setter(true);
     try {
-      const el = cardRef.current;
-      if (!el) return;
-      const canvas = await captureElement(el);
+      const canvas = await drawExportCanvas(getExportConfig());
       const mime = format === 'png' ? 'image/png' : 'image/jpeg';
       const quality = format === 'png' ? 1.0 : 0.95;
       const url = canvas.toDataURL(mime, quality);
@@ -48,6 +68,9 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       a.href = url;
       a.download = `quartz-export.${format}`;
       a.click();
+    } catch (err) {
+      console.error('Export failed:', err);
+      toast.error('Export failed — please try again');
     } finally {
       setter(false);
     }
@@ -56,9 +79,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
   async function copyToClipboard() {
     setCopyPending(true);
     try {
-      const el = cardRef.current;
-      if (!el) return;
-      const canvas = await captureElement(el);
+      const canvas = await drawExportCanvas(getExportConfig());
       canvas.toBlob(async (blob) => {
         if (!blob) return;
         try {
@@ -72,6 +93,9 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
           toast.error('Copy failed — use PNG export');
         }
       }, 'image/png');
+    } catch (err) {
+      console.error('Copy failed:', err);
+      toast.error('Export failed — please try again');
     } finally {
       setCopyPending(false);
     }

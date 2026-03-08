@@ -87,8 +87,8 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             <input
               value={store.filename}
               onChange={(e) => store.setFilename(e.target.value)}
-              className={`bg-transparent text-xs ${font.className} ml-2 outline-none border-none filename-tab`}
-              style={{ color: 'rgba(255,255,255,0.38)', fontWeight: 500, fontSize: '12px' }}
+              className={`bg-transparent text-[13px] ${font.className} ml-2 outline-none border-none filename-tab`}
+              style={{ color: 'rgba(255,255,255,0.50)', fontWeight: 500 }}
               onClick={(e) => e.stopPropagation()}
             />
           </div>

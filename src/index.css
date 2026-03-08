@@ -347,8 +347,8 @@ select.toolbar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 56px;
-  min-height: 300px;
+  padding: 52px 64px;
+  min-height: 380px;
   max-height: 600px;
   position: relative;
   overflow: auto;

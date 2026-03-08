@@ -191,10 +191,11 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
     ctx.fillText('Made with ◈ Quartz', winX + codeW - 12, winY + codeH - 6);
   }
 
+  // Restore the outer clip
+  ctx.restore();
+
   return canvas;
 }
-
-// Helpers
 
 function roundRect(
   ctx: CanvasRenderingContext2D,

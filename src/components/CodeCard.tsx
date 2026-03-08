@@ -60,7 +60,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
         width: cardWidth.width,
-        minWidth: '560px',
+        minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '560px',
       }}
     >
       <div

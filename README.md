@@ -6,7 +6,7 @@ Quartz is a code-to-image tool I built because I was tired of carbon.now.sh look
 
 Paste your code, pick a theme, export a pixel-perfect image. That's it.
 
-**[quartz](quartz-theta.vercel.app)** Built by [Mrudul](https://github.com/Mrudul1234)
+Built by [Mrudul](https://github.com/Mrudul1234)
 
 ---
 

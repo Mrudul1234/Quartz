@@ -173,6 +173,13 @@ body::before {
     0 0 80px rgba(124, 58, 237, 0.08);
 }
 
+@media (max-width: 768px) {
+  .app-container {
+    border-radius: 10px;
+    margin: 0 8px;
+  }
+}
+
 /* ==================== TOOLBAR ==================== */
 .toolbar {
   display: flex;

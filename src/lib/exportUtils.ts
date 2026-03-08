@@ -3,6 +3,8 @@ import html2canvas from 'html2canvas';
 export function buildExportClone(original: HTMLElement): HTMLElement {
   const clone = original.cloneNode(true) as HTMLElement;
 
+  // Copy computed styles for the card frame (ensures border, box-shadow, background render)
+  const computed = window.getComputedStyle(original);
   clone.style.position = 'fixed';
   clone.style.top = '-99999px';
   clone.style.left = '-99999px';
@@ -12,6 +14,12 @@ export function buildExportClone(original: HTMLElement): HTMLElement {
   clone.style.transform = 'none';
   clone.style.maxWidth = 'none';
   clone.style.maxHeight = 'none';
+  // Inline computed border/shadow/background so html2canvas sees them
+  clone.style.border = computed.border;
+  clone.style.boxShadow = computed.boxShadow;
+  if (!clone.style.background || clone.style.background === 'none') {
+    clone.style.background = computed.background;
+  }
 
   // Flatten every span
   clone.querySelectorAll('span').forEach((span) => {

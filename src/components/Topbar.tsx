@@ -22,11 +22,6 @@ const cardStylePresets = [
   { id: 'glass', label: '🪟 Frosted Glass', desc: 'Blur + transparency' },
   { id: 'neon', label: '💜 Neon Outline', desc: 'Glowing border' },
   { id: 'flat', label: '◼ Minimal Flat', desc: 'Clean dark' },
-  { id: 'glossy-violet', label: '✨ Glossy Violet', desc: 'Polished purple' },
-  { id: 'glossy-midnight', label: '✨ Glossy Midnight', desc: 'Dark lacquer' },
-  { id: 'glossy-rose', label: '✨ Glossy Rose', desc: 'Deep crimson shine' },
-  { id: 'glossy-ocean', label: '✨ Glossy Ocean', desc: 'Deep sea gloss' },
-  { id: 'glossy-obsidian', label: '✨ Glossy Obsidian', desc: 'Black mirror' },
 ];
 
 const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {

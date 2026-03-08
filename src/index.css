@@ -385,6 +385,9 @@ select.toolbar-btn {
   position: relative;
   overflow: visible !important;
   transition: box-shadow 0.3s ease;
+  width: max-content;
+  min-width: 700px;
+  max-width: 95vw;
 }
 
 /* ==================== CARD STYLE PRESETS ==================== */

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { themes, gradientPresets, platformPresets } from '@/lib/themes';
+import { gradientPresets } from '@/lib/themes';
 
 interface QuartzState {
   code: string;
@@ -17,6 +17,9 @@ interface QuartzState {
   filename: string;
   customWidth: number;
   customHeight: number;
+  fontIndex: number;
+  cardWidthIndex: number;
+  showWatermark: boolean;
   setCode: (code: string) => void;
   setLanguage: (lang: string) => void;
   setThemeIndex: (i: number) => void;
@@ -32,25 +35,27 @@ interface QuartzState {
   setFilename: (f: string) => void;
   setCustomWidth: (w: number) => void;
   setCustomHeight: (h: number) => void;
+  setFontIndex: (i: number) => void;
+  setCardWidthIndex: (i: number) => void;
+  toggleWatermark: () => void;
 }
 
-const defaultCode = `const greet = (name) => {
-  // Crystallize your code ✨
-  const message = \`Hello, \${name}!\`;
-  console.log(message);
-  return message;
+const defaultCode = `const crystallize = (idea) => {
+  const clarity = idea.trim().toLowerCase();
+  return \`✦ \${clarity} — made beautiful\`;
 };
 
-greet("Quartz");`;
+console.log(crystallize("  Your Code  "));
+// ✦ your code — made beautiful`;
 
 export const useQuartzStore = create<QuartzState>((set) => ({
   code: defaultCode,
   language: 'javascript',
   themeIndex: 0,
   fontSize: 13,
-  padding: 40,
+  padding: 32,
   borderRadius: 10,
-  lineHeight: 1.65,
+  lineHeight: 1.6,
   showLineNumbers: true,
   showWindowChrome: true,
   showShadow: true,
@@ -59,6 +64,9 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   filename: 'snippet.js',
   customWidth: 800,
   customHeight: 600,
+  fontIndex: 0,
+  cardWidthIndex: 1,
+  showWatermark: false,
   setCode: (code) => set({ code }),
   setLanguage: (language) => set({ language }),
   setThemeIndex: (themeIndex) => set({ themeIndex }),
@@ -74,4 +82,7 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   setFilename: (filename) => set({ filename }),
   setCustomWidth: (customWidth) => set({ customWidth }),
   setCustomHeight: (customHeight) => set({ customHeight }),
+  setFontIndex: (fontIndex) => set({ fontIndex }),
+  setCardWidthIndex: (cardWidthIndex) => set({ cardWidthIndex }),
+  toggleWatermark: () => set((s) => ({ showWatermark: !s.showWatermark })),
 }));

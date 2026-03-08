@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { useQuartzStore } from '@/store/useQuartzStore';
-import { themes } from '@/lib/themes';
+import { themes, codeFonts, cardWidthPresets } from '@/lib/themes';
 import { tokenizeLine, getTokenColor, detectLanguage } from '@/lib/highlighter';
 
 interface CodeCardProps {
@@ -10,6 +10,8 @@ interface CodeCardProps {
 const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   const store = useQuartzStore();
   const theme = themes[store.themeIndex];
+  const font = codeFonts[store.fontIndex];
+  const cardWidth = cardWidthPresets[store.cardWidthIndex];
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const codeContainerRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +41,6 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
     store.setCode(e.target.value);
   };
 
-  // Sync scroll between textarea and rendered code
   const handleScroll = useCallback(() => {
     if (textareaRef.current && codeContainerRef.current) {
       codeContainerRef.current.scrollTop = textareaRef.current.scrollTop;
@@ -52,13 +53,15 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   return (
     <div
       ref={cardRef}
+      className="code-card"
+      onClick={handleCardClick}
       style={{
         background: store.backgroundStyle,
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
-        boxShadow: store.showShadow ? '0 25px 50px -12px rgba(0,0,0,0.6), 0 0 100px -20px rgba(0,0,0,0.3)' : 'none',
+        boxShadow: store.showShadow ? '0 24px 64px rgba(0,0,0,0.55)' : 'none',
+        width: cardWidth.width,
       }}
-      className="relative"
     >
       <div
         style={{
@@ -67,59 +70,81 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
           overflow: 'hidden',
         }}
       >
-        {/* Window Chrome */}
+        {/* Window Chrome — 36px header */}
         {store.showWindowChrome && (
           <div
-            style={{ background: theme.header }}
-            className="flex items-center gap-2 px-4 py-3"
+            style={{
+              background: theme.header,
+              height: '36px',
+            }}
+            className="flex items-center gap-2 px-3.5"
           >
-            <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full" style={{ background: theme.dots[0] }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: theme.dots[1] }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: theme.dots[2] }} />
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
+              <div className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
+              <div className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
             </div>
             <input
               value={store.filename}
               onChange={(e) => store.setFilename(e.target.value)}
-              className="bg-transparent text-xs font-code ml-2 outline-none border-none"
-              style={{ color: theme.comment }}
+              className={`bg-transparent text-xs ${font.className} ml-2 outline-none border-none`}
+              style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 500, fontSize: '12px' }}
               onClick={(e) => e.stopPropagation()}
             />
           </div>
         )}
 
         {/* Code Area */}
-        <div
-          className="relative"
-          style={{ padding: '16px 0' }}
-        >
+        <div className="relative" style={{ padding: '14px 16px' }}>
+          {/* Line number gutter border */}
+          {store.showLineNumbers && (
+            <div
+              className="absolute top-0 bottom-0"
+              style={{
+                left: `calc(16px + ${lineNumberWidth})`,
+                width: '1px',
+                background: 'rgba(255,255,255,0.06)',
+              }}
+            />
+          )}
+
           {/* Rendered code overlay */}
           <div
             ref={codeContainerRef}
-            className="font-code select-none pointer-events-none overflow-hidden"
+            className={`${font.className} select-none pointer-events-none overflow-hidden`}
             style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight }}
           >
             {lines.map((line, i) => (
-              <div key={i} className="flex px-4" style={{ minHeight: `${store.fontSize * store.lineHeight}px` }}>
+              <div key={i} className="flex" style={{ minHeight: `${store.fontSize * store.lineHeight}px` }}>
                 {store.showLineNumbers && (
                   <span
                     className="select-none text-right mr-4 shrink-0"
-                    style={{ color: theme.comment, opacity: 0.5, width: lineNumberWidth }}
+                    style={{ color: 'rgba(255,255,255,0.2)', width: lineNumberWidth }}
                   >
                     {i + 1}
                   </span>
                 )}
-                <span className="whitespace-pre">
+                <code style={{ display: 'inline', whiteSpace: 'pre' }}>
                   {tokenizeLine(line, store.language).map((token, j) => (
                     <span key={j} style={{ color: getTokenColor(token.type, theme) }}>
                       {token.text}
                     </span>
                   ))}
                   {line === '' && '\u00A0'}
-                </span>
+                </code>
               </div>
             ))}
           </div>
+
+          {/* Watermark */}
+          {store.showWatermark && (
+            <div
+              className="font-toolbar-btn text-right mt-2"
+              style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px' }}
+            >
+              Made with ◈ Quartz
+            </div>
+          )}
 
           {/* Editable textarea */}
           <textarea
@@ -127,16 +152,16 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             value={store.code}
             onChange={handleCodeChange}
             onScroll={handleScroll}
-            className="absolute inset-0 w-full h-full resize-none font-code p-0 m-0 border-none outline-none"
+            className={`absolute inset-0 w-full h-full resize-none ${font.className} p-0 m-0 border-none outline-none`}
             style={{
               fontSize: `${store.fontSize}px`,
               lineHeight: store.lineHeight,
               color: 'transparent',
               caretColor: theme.text,
               background: 'transparent',
-              paddingLeft: store.showLineNumbers ? `calc(1rem + ${lineNumberWidth} + 1rem)` : '1rem',
-              paddingTop: '16px',
-              paddingRight: '1rem',
+              paddingLeft: store.showLineNumbers ? `calc(${lineNumberWidth} + 1rem + 16px)` : '16px',
+              paddingTop: '14px',
+              paddingRight: '16px',
               WebkitTextFillColor: 'transparent',
             }}
             spellCheck={false}

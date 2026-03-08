@@ -16,6 +16,7 @@ export type Theme = {
 };
 
 export const themes: Theme[] = [
+  // Original 20
   { name: "VS Code Dark+", bg: "#1e1e1e", header: "#2d2d2d", text: "#d4d4d4", comment: "#6a9955", kw: "#569cd6", fn: "#dcdcaa", str: "#ce9178", num: "#b5cea8", type: "#4ec9b0", prop: "#9cdcfe", op: "#d4d4d4", tag: "#569cd6", dots: ["#ff5f56", "#ffbd2e", "#27c93f"] },
   { name: "Dracula", bg: "#282a36", header: "#21222c", text: "#f8f8f2", comment: "#6272a4", kw: "#ff79c6", fn: "#50fa7b", str: "#f1fa8c", num: "#bd93f9", type: "#8be9fd", prop: "#f8f8f2", op: "#ff79c6", tag: "#ff79c6", dots: ["#ff5555", "#f1fa8c", "#50fa7b"] },
   { name: "Monokai", bg: "#272822", header: "#1e1f1c", text: "#f8f8f2", comment: "#75715e", kw: "#f92672", fn: "#a6e22e", str: "#e6db74", num: "#ae81ff", type: "#66d9ef", prop: "#f8f8f2", op: "#f92672", tag: "#f92672", dots: ["#ff5f56", "#ffbd2e", "#27c93f"] },
@@ -36,6 +37,23 @@ export const themes: Theme[] = [
   { name: "Ayu Dark", bg: "#0a0e14", header: "#0d1117", text: "#bfbdb6", comment: "#acb6bf8c", kw: "#ff8f40", fn: "#ffb454", str: "#aad94c", num: "#d2a6ff", type: "#39bae6", prop: "#bfbdb6", op: "#f29668", tag: "#39bae6", dots: ["#f07178", "#ffb454", "#aad94c"] },
   { name: "Material Ocean", bg: "#0f111a", header: "#1a1c25", text: "#8f93a2", comment: "#464b5d", kw: "#c792ea", fn: "#82aaff", str: "#c3e88d", num: "#f78c6c", type: "#ffcb6b", prop: "#8f93a2", op: "#89ddff", tag: "#f07178", dots: ["#f07178", "#ffcb6b", "#c3e88d"] },
   { name: "Vesper", bg: "#101010", header: "#1a1a1a", text: "#b3b3b3", comment: "#505050", kw: "#ffc799", fn: "#99ffe4", str: "#99ffd5", num: "#ffb399", type: "#ff99cc", prop: "#b3b3b3", op: "#ffc799", tag: "#ff99cc", dots: ["#ff6666", "#ffcc66", "#66ff99"] },
+
+  // 15 new themes
+  { name: "Cobalt2", bg: "#193549", header: "#122738", text: "#ffffff", comment: "#0088ff", kw: "#ffc600", fn: "#ffc600", str: "#a5ff90", num: "#ff628c", type: "#80ffbb", prop: "#9effff", op: "#e1efff", tag: "#ffc600", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Shades of Purple", bg: "#2d2b55", header: "#1e1d40", text: "#e0def4", comment: "#b362ff", kw: "#ff628c", fn: "#fad000", str: "#a5ff90", num: "#ff9d00", type: "#80ffbb", prop: "#9effff", op: "#ff9d00", tag: "#ff628c", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Palenight", bg: "#292d3e", header: "#222633", text: "#a6accd", comment: "#676e95", kw: "#c792ea", fn: "#82aaff", str: "#c3e88d", num: "#f78c6c", type: "#ffcb6b", prop: "#a6accd", op: "#89ddff", tag: "#f07178", dots: ["#ff5370", "#ffcb6b", "#c3e88d"] },
+  { name: "Andromeda", bg: "#23262e", header: "#1e2027", text: "#d5ced9", comment: "#7a7a7a", kw: "#c74ded", fn: "#00e8c6", str: "#ffe66d", num: "#f39c12", type: "#00e8c6", prop: "#d5ced9", op: "#ee5d43", tag: "#c74ded", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Bearded Arc", bg: "#1c2433", header: "#161d2b", text: "#c3cfd9", comment: "#6a7a8b", kw: "#f59762", fn: "#69c3ff", str: "#98d982", num: "#e2a56e", type: "#efb993", prop: "#c3cfd9", op: "#f59762", tag: "#69c3ff", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Moonlight", bg: "#222436", header: "#1b1d2e", text: "#c8d3f5", comment: "#7a88cf", kw: "#c099ff", fn: "#82aaff", str: "#c3e88d", num: "#ff966c", type: "#ffc777", prop: "#c8d3f5", op: "#86e1fc", tag: "#c099ff", dots: ["#ff757f", "#ffc777", "#c3e88d"] },
+  { name: "Everforest Dark", bg: "#2d353b", header: "#272e33", text: "#d3c6aa", comment: "#859289", kw: "#e67e80", fn: "#a7c080", str: "#dbbc7f", num: "#d699b6", type: "#7fbbb3", prop: "#d3c6aa", op: "#e67e80", tag: "#e67e80", dots: ["#e67e80", "#dbbc7f", "#a7c080"] },
+  { name: "Ayu Mirage", bg: "#1f2430", header: "#1a1e29", text: "#cbccc6", comment: "#5c6773", kw: "#ffa759", fn: "#ffd580", str: "#bae67e", num: "#dfbfff", type: "#73d0ff", prop: "#cbccc6", op: "#f29e74", tag: "#73d0ff", dots: ["#ff3333", "#ff9940", "#bae67e"] },
+  { name: "Catppuccin Mocha", bg: "#1e1e2e", header: "#181825", text: "#cdd6f4", comment: "#585b70", kw: "#cba6f7", fn: "#89b4fa", str: "#a6e3a1", num: "#fab387", type: "#f5c2e7", prop: "#f2cdcd", op: "#94e2d5", tag: "#f38ba8", dots: ["#f38ba8", "#f9e2af", "#a6e3a1"] },
+  { name: "Catppuccin Latte", bg: "#eff1f5", header: "#e6e9ef", text: "#4c4f69", comment: "#9ca0b0", kw: "#8839ef", fn: "#1e66f5", str: "#40a02b", num: "#fe640b", type: "#ea76cb", prop: "#4c4f69", op: "#179299", tag: "#d20f39", dots: ["#d20f39", "#df8e1d", "#40a02b"] },
+  { name: "Dracula Soft", bg: "#282a36", header: "#21222c", text: "#e8e8e2", comment: "#7970a9", kw: "#f286c4", fn: "#62e884", str: "#e7ee98", num: "#bf9eee", type: "#97e1f1", prop: "#e8e8e2", op: "#f286c4", tag: "#f286c4", dots: ["#ff6e6e", "#f1fa8c", "#62e884"] },
+  { name: "Plastic", bg: "#21252b", header: "#1b1f23", text: "#a9b2c3", comment: "#5f6672", kw: "#d55fde", fn: "#61afef", str: "#98c379", num: "#d19a66", type: "#e5c07b", prop: "#e06c75", op: "#56b6c2", tag: "#e06c75", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Quiet Light", bg: "#f5f5f5", header: "#eaeaea", text: "#333333", comment: "#aaaaaa", kw: "#4b69c6", fn: "#aa3731", str: "#448c27", num: "#9c5d27", type: "#7a3e9d", prop: "#333333", op: "#777777", tag: "#4b69c6", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Solarized Light", bg: "#fdf6e3", header: "#eee8d5", text: "#657b83", comment: "#93a1a1", kw: "#859900", fn: "#268bd2", str: "#2aa198", num: "#d33682", type: "#b58900", prop: "#657b83", op: "#859900", tag: "#268bd2", dots: ["#dc322f", "#b58900", "#859900"] },
+  { name: "Houston", bg: "#17191e", header: "#111316", text: "#c0cad8", comment: "#4b5263", kw: "#00d5a9", fn: "#5ccfe6", str: "#bae67e", num: "#f29e74", type: "#ffd580", prop: "#c0cad8", op: "#00d5a9", tag: "#5ccfe6", dots: ["#ef5350", "#ffd580", "#bae67e"] },
 ];
 
 export const gradientPresets = [
@@ -46,7 +64,15 @@ export const gradientPresets = [
   "linear-gradient(135deg, #fc4a1a, #f7b733)",
   "linear-gradient(135deg, #c94b4b, #4b134f)",
   "linear-gradient(135deg, #005c97, #363795)",
+  "linear-gradient(135deg, #ee0979, #ff6a00)",
+  "linear-gradient(135deg, #f953c6, #b91d73)",
+  "linear-gradient(135deg, #00b4db, #0083b0)",
+  "linear-gradient(135deg, #654ea3, #eaafc8)",
+  "linear-gradient(135deg, #2193b0, #6dd5ed)",
   "#0a0a0a",
+  "#1a1a2e",
+  "#ffffff",
+  "transparent",
 ];
 
 export const platformPresets = [
@@ -58,3 +84,24 @@ export const platformPresets = [
   { name: "OG Image", width: 1200, height: 630 },
   { name: "Custom", width: 800, height: 600 },
 ];
+
+export const codeFonts = [
+  { name: "JetBrains Mono", className: "font-jetbrains" },
+  { name: "Fira Code", className: "font-fira" },
+  { name: "Source Code Pro", className: "font-source" },
+  { name: "Inconsolata", className: "font-inconsolata" },
+];
+
+export const cardWidthPresets = [
+  { name: "Narrow", width: 480 },
+  { name: "Default", width: 680 },
+  { name: "Wide", width: 860 },
+  { name: "XL", width: 1060 },
+];
+
+export const extMap: Record<string, string> = {
+  js: 'javascript', ts: 'typescript', tsx: 'typescript', jsx: 'javascript',
+  py: 'python', rs: 'rust', go: 'go', java: 'java', cpp: 'cpp', c: 'c',
+  cs: 'c', rb: 'python', php: 'javascript', swift: 'javascript',
+  kt: 'java', sh: 'python', html: 'html', css: 'css', json: 'javascript', md: 'javascript',
+};

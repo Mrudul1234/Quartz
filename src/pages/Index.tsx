@@ -121,7 +121,7 @@ const Index = () => {
 
       {/* Footer hint */}
       <div className="py-4">
-        <span className="font-footer text-xs" style={{ color: '#6b6b8a' }}>
+        <span className="text-xs" style={{ color: '#6b6b8a', fontFamily: "'Syne', sans-serif", fontWeight: 500, letterSpacing: '0.04em' }}>
           Made with love by <a href="https://github.com/Mrudul1234" target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', textDecoration: 'underline', textUnderlineOffset: '3px' }}>Mrudul</a>
         </span>
       </div>

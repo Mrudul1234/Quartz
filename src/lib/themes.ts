@@ -38,7 +38,7 @@ export const themes: Theme[] = [
   { name: "Material Ocean", bg: "#0f111a", header: "#1a1c25", text: "#8f93a2", comment: "#464b5d", kw: "#c792ea", fn: "#82aaff", str: "#c3e88d", num: "#f78c6c", type: "#ffcb6b", prop: "#8f93a2", op: "#89ddff", tag: "#f07178", dots: ["#f07178", "#ffcb6b", "#c3e88d"] },
   { name: "Vesper", bg: "#101010", header: "#1a1a1a", text: "#b3b3b3", comment: "#505050", kw: "#ffc799", fn: "#99ffe4", str: "#99ffd5", num: "#ffb399", type: "#ff99cc", prop: "#b3b3b3", op: "#ffc799", tag: "#ff99cc", dots: ["#ff6666", "#ffcc66", "#66ff99"] },
 
-  // 15 new themes
+  // 15 existing new themes
   { name: "Cobalt2", bg: "#193549", header: "#122738", text: "#ffffff", comment: "#0088ff", kw: "#ffc600", fn: "#ffc600", str: "#a5ff90", num: "#ff628c", type: "#80ffbb", prop: "#9effff", op: "#e1efff", tag: "#ffc600", dots: ["#ff5f57", "#febc2e", "#28c840"] },
   { name: "Shades of Purple", bg: "#2d2b55", header: "#1e1d40", text: "#e0def4", comment: "#b362ff", kw: "#ff628c", fn: "#fad000", str: "#a5ff90", num: "#ff9d00", type: "#80ffbb", prop: "#9effff", op: "#ff9d00", tag: "#ff628c", dots: ["#ff5f57", "#febc2e", "#28c840"] },
   { name: "Palenight", bg: "#292d3e", header: "#222633", text: "#a6accd", comment: "#676e95", kw: "#c792ea", fn: "#82aaff", str: "#c3e88d", num: "#f78c6c", type: "#ffcb6b", prop: "#a6accd", op: "#89ddff", tag: "#f07178", dots: ["#ff5370", "#ffcb6b", "#c3e88d"] },
@@ -54,6 +54,23 @@ export const themes: Theme[] = [
   { name: "Quiet Light", bg: "#f5f5f5", header: "#eaeaea", text: "#333333", comment: "#aaaaaa", kw: "#4b69c6", fn: "#aa3731", str: "#448c27", num: "#9c5d27", type: "#7a3e9d", prop: "#333333", op: "#777777", tag: "#4b69c6", dots: ["#ff5f57", "#febc2e", "#28c840"] },
   { name: "Solarized Light", bg: "#fdf6e3", header: "#eee8d5", text: "#657b83", comment: "#93a1a1", kw: "#859900", fn: "#268bd2", str: "#2aa198", num: "#d33682", type: "#b58900", prop: "#657b83", op: "#859900", tag: "#268bd2", dots: ["#dc322f", "#b58900", "#859900"] },
   { name: "Houston", bg: "#17191e", header: "#111316", text: "#c0cad8", comment: "#4b5263", kw: "#00d5a9", fn: "#5ccfe6", str: "#bae67e", num: "#f29e74", type: "#ffd580", prop: "#c0cad8", op: "#00d5a9", tag: "#5ccfe6", dots: ["#ef5350", "#ffd580", "#bae67e"] },
+
+  // 15 additional themes
+  { name: "Vitesse Dark", bg: "#121212", header: "#1a1a1a", text: "#dbd7ca", comment: "#758575", kw: "#4d9375", fn: "#80a665", str: "#c98a7d", num: "#4c9a91", type: "#5da994", prop: "#b8a965", op: "#cb7676", tag: "#4d9375", dots: ["#cb7676", "#c98a7d", "#4d9375"] },
+  { name: "Vitesse Light", bg: "#ffffff", header: "#f5f5f5", text: "#393a34", comment: "#a0ada0", kw: "#1e754f", fn: "#59873a", str: "#b56959", num: "#2f798a", type: "#2e8f82", prop: "#998418", op: "#ab5959", tag: "#1e754f", dots: ["#ab5959", "#998418", "#1e754f"] },
+  { name: "Min Dark", bg: "#1f1f1f", header: "#171717", text: "#b4b4b4", comment: "#546e7a", kw: "#ff6d12", fn: "#ffb62c", str: "#a5c261", num: "#ff9cac", type: "#c792ea", prop: "#b4b4b4", op: "#ff6d12", tag: "#80cbc4", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Slack Dark", bg: "#222222", header: "#1a1a1a", text: "#e8e8e8", comment: "#666666", kw: "#e6db74", fn: "#80cbc4", str: "#a5c261", num: "#ae81ff", type: "#66d9ef", prop: "#e8e8e8", op: "#f92672", tag: "#e6db74", dots: ["#ff5f57", "#febc2e", "#28c840"] },
+  { name: "Laserwave", bg: "#27212e", header: "#1e1926", text: "#ffffff", comment: "#6b6477", kw: "#40b4c4", fn: "#eb64b9", str: "#b4dce7", num: "#f29668", type: "#ffe261", prop: "#ffffff", op: "#40b4c4", tag: "#eb64b9", dots: ["#eb64b9", "#ffe261", "#40b4c4"] },
+  { name: "Bluloco Dark", bg: "#282c34", header: "#21252b", text: "#abb2bf", comment: "#636d83", kw: "#10b1fe", fn: "#3fc56b", str: "#f9c859", num: "#ff78f8", type: "#9f7efe", prop: "#ce9887", op: "#ff6480", tag: "#10b1fe", dots: ["#ff6480", "#f9c859", "#3fc56b"] },
+  { name: "Bluloco Light", bg: "#f9f9f9", header: "#eeeeee", text: "#383a42", comment: "#a0a1a7", kw: "#0098dd", fn: "#23974a", str: "#c5a332", num: "#ce33c0", type: "#7a3e9d", prop: "#a05a48", op: "#d52753", tag: "#0098dd", dots: ["#d52753", "#c5a332", "#23974a"] },
+  { name: "Atom One Light", bg: "#fafafa", header: "#f0f0f0", text: "#383a42", comment: "#a0a1a7", kw: "#a626a4", fn: "#4078f2", str: "#50a14f", num: "#986801", type: "#c18401", prop: "#e45649", op: "#0184bc", tag: "#e45649", dots: ["#e45649", "#c18401", "#50a14f"] },
+  { name: "Panda", bg: "#292a2b", header: "#232425", text: "#e6e6e6", comment: "#676b79", kw: "#ff75b5", fn: "#6fc1ff", str: "#19f9d8", num: "#ffb86c", type: "#ff9ac1", prop: "#e6e6e6", op: "#ff2c6d", tag: "#ff75b5", dots: ["#ff2c6d", "#ffb86c", "#19f9d8"] },
+  { name: "Snazzy", bg: "#282a36", header: "#21222c", text: "#eff0eb", comment: "#78787e", kw: "#ff6ac1", fn: "#5af78e", str: "#f3f99d", num: "#9aedfe", type: "#ff5c57", prop: "#eff0eb", op: "#ff6ac1", tag: "#ff5c57", dots: ["#ff5c57", "#f3f99d", "#5af78e"] },
+  { name: "Winter is Coming", bg: "#011627", header: "#0b2942", text: "#d6deeb", comment: "#999999", kw: "#c792ea", fn: "#87e22e", str: "#addb67", num: "#f78c6c", type: "#ffcb8b", prop: "#7fdbca", op: "#c792ea", tag: "#7fdbca", dots: ["#ef5350", "#ffca28", "#9ccc65"] },
+  { name: "Monokai Pro", bg: "#2d2a2e", header: "#252226", text: "#fcfcfa", comment: "#727072", kw: "#ff6188", fn: "#a9dc76", str: "#ffd866", num: "#ab9df2", type: "#78dce8", prop: "#fcfcfa", op: "#ff6188", tag: "#ff6188", dots: ["#ff6188", "#ffd866", "#a9dc76"] },
+  { name: "Aurora", bg: "#07090f", header: "#0d1117", text: "#bcc5d0", comment: "#4c566a", kw: "#86e1fc", fn: "#82aaff", str: "#c3e88d", num: "#ffc777", type: "#c099ff", prop: "#bcc5d0", op: "#86e1fc", tag: "#c099ff", dots: ["#ff757f", "#ffc777", "#c3e88d"] },
+  { name: "Noctis", bg: "#1b2932", header: "#152028", text: "#c5cdd3", comment: "#5b858b", kw: "#d19a66", fn: "#49e9a6", str: "#16b673", num: "#7060eb", type: "#e4b781", prop: "#c5cdd3", op: "#ec5f67", tag: "#d19a66", dots: ["#ec5f67", "#e4b781", "#49e9a6"] },
+  { name: "Remedy Dark", bg: "#1c1c1c", header: "#161616", text: "#c5c8c6", comment: "#969896", kw: "#b294bb", fn: "#81a2be", str: "#b5bd68", num: "#de935f", type: "#8abeb7", prop: "#cc6666", op: "#b294bb", tag: "#cc6666", dots: ["#cc6666", "#f0c674", "#b5bd68"] },
 ];
 
 export const gradientPresets = [

@@ -58,34 +58,42 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
     if (w > maxLineWidth) maxLineWidth = w;
   }
 
-  // Card dimensions
-  const codeW = maxLineWidth + GUTTER_W + H_PAD * 2 + 48;
-  const codeH = tokenizedLines.length * LINE_H + V_PAD * 2 + CHROME_H + (showWatermark ? 24 : 0);
+  // Card dimensions (rounded up to avoid sub-pixel cropping)
+  const codeW = Math.ceil(maxLineWidth + GUTTER_W + H_PAD * 2 + 48);
+  const codeH = Math.ceil(tokenizedLines.length * LINE_H + V_PAD * 2 + CHROME_H + (showWatermark ? 24 : 0));
   const FRAME_P = padding;
-  const totalW = codeW + FRAME_P * 2;
-  const totalH = codeH + FRAME_P * 2;
+  const EDGE_BLEED = 2; // safety margin so rounded edges/shadows are never clipped
+  const totalW = codeW + FRAME_P * 2 + EDGE_BLEED * 2;
+  const totalH = codeH + FRAME_P * 2 + EDGE_BLEED * 2;
 
-  // Create canvas
+  // Create canvas with integer backing size
   const canvas = document.createElement('canvas');
-  canvas.width = totalW * SCALE;
-  canvas.height = totalH * SCALE;
+  const canvasWidth = Math.ceil(totalW * SCALE);
+  const canvasHeight = Math.ceil(totalH * SCALE);
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
   const ctx = canvas.getContext('2d')!;
-  ctx.scale(SCALE, SCALE);
+  ctx.scale(canvasWidth / totalW, canvasHeight / totalH);
+
+  const outerX = EDGE_BLEED;
+  const outerY = EDGE_BLEED;
+  const outerW = totalW - EDGE_BLEED * 2;
+  const outerH = totalH - EDGE_BLEED * 2;
 
   // Draw outer background (card frame) and clip to rounded rect
   ctx.save();
-  roundRect(ctx, 0, 0, totalW, totalH, config.borderRadius);
-  applyBackground(ctx, cardBg, totalW, totalH);
+  roundRect(ctx, outerX, outerY, outerW, outerH, config.borderRadius);
+  applyBackground(ctx, cardBg, outerW, outerH);
   ctx.restore();
 
   // Clip all subsequent drawing to the outer rounded rect
   ctx.save();
-  roundRect(ctx, 0, 0, totalW, totalH, config.borderRadius);
+  roundRect(ctx, outerX, outerY, outerW, outerH, config.borderRadius);
   ctx.clip();
 
   // Window position
-  const winX = FRAME_P;
-  const winY = FRAME_P;
+  const winX = outerX + FRAME_P;
+  const winY = outerY + FRAME_P;
   const winRadius = Math.max(config.borderRadius - 4, 0);
 
   // Window shadow

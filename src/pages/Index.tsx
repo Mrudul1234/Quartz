@@ -93,7 +93,7 @@ const Index = () => {
   return (
     <div className="relative min-h-screen flex flex-col items-center" style={{ zIndex: 1 }}>
       {/* Logo — centred above container */}
-      <div className="quartz-logo-wrap pt-14">
+      <div className="quartz-logo-wrap pt-20">
         <span className="quartz-logo cursor-default">
           <span className="gem">◈</span>quartz
         </span>

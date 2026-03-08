@@ -129,12 +129,21 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Footer hint */}
-      <div className="py-4">
-        <span className="text-xs" style={{ color: '#6b6b8a', fontFamily: "'DM Mono', monospace", fontWeight: 400, letterSpacing: '0.05em' }}>
-          Made with love by <a href="https://github.com/Mrudul1234" target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', textDecoration: 'none' }}>Mrudul</a>
-        </span>
-      </div>
+      {/* Footer */}
+      <div className="footer-separator" />
+      <footer className="quartz-footer">
+        <p className="footer-credit">
+          made with <span className="love">love</span> by{' '}
+          <a
+            className="author"
+            href="https://github.com/Mrudul1234"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Mrudul
+          </a>
+        </p>
+      </footer>
     </div>
   );
 };

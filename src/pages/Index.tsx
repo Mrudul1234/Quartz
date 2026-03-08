@@ -145,7 +145,7 @@ const Index = () => {
           </a>
         </p>
       </footer>
-    </div>
+    </main>
   );
 };
 

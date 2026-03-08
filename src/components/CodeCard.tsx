@@ -155,9 +155,9 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
               color: 'transparent',
               caretColor: theme.text,
               background: 'transparent',
-              paddingLeft: store.showLineNumbers ? `calc(${lineNumberWidth} + 1rem + 16px)` : '16px',
-              paddingTop: '14px',
-              paddingRight: '16px',
+              paddingLeft: store.showLineNumbers ? `calc(${lineNumberWidth} + 1rem + 18px)` : '18px',
+              paddingTop: '18px',
+              paddingRight: '28px',
               WebkitTextFillColor: 'transparent',
             }}
             spellCheck={false}

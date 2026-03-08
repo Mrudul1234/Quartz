@@ -39,14 +39,14 @@ export const themes: Theme[] = [
 ];
 
 export const gradientPresets = [
-  "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-  "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-  "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-  "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-  "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-  "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)",
-  "linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)",
-  "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)",
+  "linear-gradient(135deg, #1a0533, #2d1b69)",
+  "linear-gradient(135deg, #1a1a2e, #16213e)",
+  "linear-gradient(135deg, #0f0c29, #302b63)",
+  "linear-gradient(135deg, #11998e, #38ef7d)",
+  "linear-gradient(135deg, #fc4a1a, #f7b733)",
+  "linear-gradient(135deg, #c94b4b, #4b134f)",
+  "linear-gradient(135deg, #005c97, #363795)",
+  "#0a0a0a",
 ];
 
 export const platformPresets = [

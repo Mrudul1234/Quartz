@@ -1,33 +1,21 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { BeamsBackground } from '@/components/ui/beams-background';
+import React, { useRef, useEffect } from 'react';
 import Topbar from '@/components/Topbar';
 import CodeCard from '@/components/CodeCard';
-import CodeDrawer from '@/components/CodeDrawer';
 import { useQuartzStore } from '@/store/useQuartzStore';
 import { platformPresets } from '@/lib/themes';
 import { detectLanguage } from '@/lib/highlighter';
 
 const Index = () => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const store = useQuartzStore();
   const platform = platformPresets[store.platformIndex];
 
   // Calculate scale to fit viewport
-  const maxW = typeof window !== 'undefined' ? window.innerWidth * 0.85 : 900;
-  const maxH = typeof window !== 'undefined' ? (window.innerHeight - 120) * 0.85 : 600;
+  const maxW = typeof window !== 'undefined' ? window.innerWidth * 0.75 : 900;
+  const maxH = typeof window !== 'undefined' ? (window.innerHeight - 220) * 0.8 : 600;
   const scaleX = maxW / (platform.width > 0 ? platform.width : 800);
   const scaleY = maxH / (platform.height > 0 ? platform.height : 600);
   const scale = Math.min(scaleX, scaleY, 1);
-
-  // Escape closes drawer
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setDrawerOpen(false);
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, []);
 
   // Drag & drop
   useEffect(() => {
@@ -40,7 +28,6 @@ const Index = () => {
           const text = ev.target?.result as string;
           store.setCode(text);
           store.setLanguage(detectLanguage(text));
-          const ext = file.name.split('.').pop() || '';
           store.setFilename(file.name);
         };
         reader.readAsText(file);
@@ -56,12 +43,45 @@ const Index = () => {
   }, [store]);
 
   return (
-    <BeamsBackground intensity="medium">
-      <div className="grain-overlay h-screen flex flex-col overflow-hidden">
-        <Topbar cardRef={cardRef} onToggleDrawer={() => setDrawerOpen(!drawerOpen)} />
+    <div className="relative min-h-screen flex flex-col items-center" style={{ zIndex: 1 }}>
+      {/* Header */}
+      <div className="flex items-center gap-2 pt-6 pb-4">
+        <span
+          className="text-2xl cursor-default transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(167,139,250,0.6)]"
+          style={{ color: '#a78bfa' }}
+        >
+          ◈
+        </span>
+        <span className="font-semibold text-lg tracking-wide" style={{ color: '#a78bfa' }}>
+          quartz
+        </span>
+        <span className="text-sm ml-2" style={{ color: '#6b6b8a' }}>
+          Crystallize your code.
+        </span>
+      </div>
+
+      {/* Main container */}
+      <div
+        className="w-full max-w-[920px] mx-auto rounded-xl border flex flex-col overflow-hidden"
+        style={{
+          borderColor: '#2e2e4a',
+          background: 'rgba(19, 19, 31, 0.85)',
+          backdropFilter: 'blur(20px)',
+          boxShadow: '0 0 40px rgba(124,58,237,0.12)',
+        }}
+      >
+        {/* Toolbar */}
+        <Topbar cardRef={cardRef} />
+
+        {/* Dimension badge */}
+        <div className="flex justify-center py-1.5">
+          <span className="text-[10px]" style={{ color: '#6b6b8a' }}>
+            {platform.width} × {platform.height}px · {platform.name}
+          </span>
+        </div>
 
         {/* Canvas area */}
-        <div className="flex-1 flex items-center justify-center checkerboard overflow-hidden">
+        <div className="flex-1 flex items-center justify-center checkerboard p-6 min-h-[400px]">
           <div
             style={{
               width: platform.width,
@@ -74,10 +94,15 @@ const Index = () => {
             <CodeCard cardRef={cardRef} />
           </div>
         </div>
-
-        <CodeDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
       </div>
-    </BeamsBackground>
+
+      {/* Footer hint */}
+      <div className="py-4">
+        <span className="text-xs" style={{ color: '#6b6b8a' }}>
+          Start typing or drop a file to get started.
+        </span>
+      </div>
+    </div>
   );
 };
 

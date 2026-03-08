@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,35 +6,37 @@
 
 @layer base {
   :root {
-    --background: 0 0% 5.5%;
-    --foreground: 0 0% 90%;
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 90%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 90%;
-    --primary: 43 85% 59%;
-    --primary-foreground: 0 0% 5%;
-    --secondary: 0 0% 14%;
-    --secondary-foreground: 0 0% 80%;
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 43 85% 59%;
-    --accent-foreground: 0 0% 5%;
+    --background: 260 40% 5%;
+    --foreground: 240 20% 90%;
+    --card: 260 30% 8%;
+    --card-foreground: 240 20% 90%;
+    --popover: 260 30% 10%;
+    --popover-foreground: 240 20% 90%;
+    --primary: 263 70% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 260 30% 14%;
+    --secondary-foreground: 260 20% 80%;
+    --muted: 260 20% 14%;
+    --muted-foreground: 260 15% 45%;
+    --accent: 263 70% 58%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 263 60% 73%;
+    --accent-glow: 263 80% 50%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 43 85% 59%;
+    --border: 260 25% 22%;
+    --input: 260 25% 22%;
+    --ring: 263 70% 58%;
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 7%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 43 85% 59%;
-    --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 0 0% 14%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 43 85% 59%;
+    --sidebar-background: 260 30% 7%;
+    --sidebar-foreground: 240 20% 90%;
+    --sidebar-primary: 263 70% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 260 30% 14%;
+    --sidebar-accent-foreground: 240 20% 90%;
+    --sidebar-border: 260 25% 22%;
+    --sidebar-ring: 263 70% 58%;
   }
 }
 
@@ -43,36 +45,65 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Geist', system-ui, -apple-system, sans-serif;
+    @apply text-foreground;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    background-color: #0d0d14;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(109, 40, 217, 0.15) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 70%);
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    animation: bgPulse 12s ease-in-out infinite alternate;
+    min-height: 100vh;
   }
+}
+
+@keyframes bgPulse {
+  0% {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(109, 40, 217, 0.15) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 70%);
+  }
+  50% {
+    background-image:
+      radial-gradient(ellipse 70% 70% at 30% 20%, rgba(139, 92, 246, 0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 40% at 70% 80%, rgba(124, 58, 237, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 50% at 60% 40%, rgba(167, 139, 250, 0.08) 0%, transparent 70%);
+  }
+  100% {
+    background-image:
+      radial-gradient(ellipse 90% 50% at 10% 30%, rgba(109, 40, 217, 0.20) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 90% 70%, rgba(167, 139, 250, 0.14) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 30% at 40% 60%, rgba(124, 58, 237, 0.07) 0%, transparent 70%);
+  }
+}
+
+/* Noise grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
 }
 
 #lovable-badge {
   display: none !important;
 }
 
-/* Grain overlay */
-.grain-overlay::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
 /* Checkerboard canvas background */
 .checkerboard {
   background-image: 
-    linear-gradient(45deg, hsl(0 0% 12%) 25%, transparent 25%),
-    linear-gradient(-45deg, hsl(0 0% 12%) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, hsl(0 0% 12%) 75%),
-    linear-gradient(-45deg, transparent 75%, hsl(0 0% 12%) 75%);
+    linear-gradient(45deg, rgba(124, 58, 237, 0.06) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(124, 58, 237, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(124, 58, 237, 0.06) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(124, 58, 237, 0.06) 75%);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0;
-  background-color: hsl(0 0% 9%);
+  background-color: #13131f;
 }
 
 /* Code font */
@@ -89,9 +120,13 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(0 0% 25%);
+  background: hsl(260 25% 25%);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(0 0% 35%);
+  background: hsl(260 25% 35%);
 }
+
+/* No scrollbar util */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

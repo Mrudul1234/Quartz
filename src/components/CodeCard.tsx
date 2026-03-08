@@ -62,8 +62,8 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
         width: cardWidth.width,
-        minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '700px',
-        overflow: 'visible',
+        maxWidth: '100%',
+        overflow: 'hidden',
       }}
     >
       <div
@@ -71,7 +71,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         style={{
           background: theme.bg,
           borderRadius: `${Math.max(store.borderRadius - 4, 0)}px`,
-          overflow: 'visible',
+          overflow: 'hidden',
           position: 'relative',
           zIndex: 1,
         }}
@@ -95,7 +95,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         )}
 
         {/* Code Area */}
-        <div className="vscode-body relative" style={{ padding: '18px 28px 22px 18px', minHeight: '280px', minWidth: '380px' }}>
+        <div className="vscode-body relative" style={{ padding: '18px 28px 22px 18px', minHeight: '120px' }}>
           {store.showLineNumbers && (
             <div
               className="absolute top-0 bottom-0"
@@ -110,7 +110,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
           <div
             ref={codeContainerRef}
             className={`${font.className} select-none pointer-events-none`}
-            style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight, overflow: 'visible' }}
+            style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight, overflow: 'auto' }}
           >
             {lines.map((line, i) => (
               <div key={i} className="flex" style={{ minHeight: `${store.fontSize * store.lineHeight}px` }}>
@@ -122,7 +122,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
                     {i + 1}
                   </span>
                 )}
-                <code style={{ display: 'inline', whiteSpace: 'pre', overflow: 'visible', maxWidth: 'none', width: 'max-content', paddingRight: '24px' }}>
+                <code style={{ display: 'inline', whiteSpace: 'pre', overflow: 'hidden', maxWidth: '100%', paddingRight: '24px' }}>
                   {tokenizeLine(line, store.language).map((token, j) => (
                     <span key={j} style={{ color: getTokenColor(token.type, theme) }}>
                       {token.text}

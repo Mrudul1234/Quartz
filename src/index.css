@@ -57,13 +57,22 @@
     background-color: #09090f;
     background-image:
       radial-gradient(ellipse 70% 50% at 15% 20%,  rgba(124, 58, 237, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 85% 80%,  rgba(109, 40, 217, 0.18) 0%, transparent 50%);
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    min-height: 100vh;
+  }
+}
+
+/* bgBreath animation — desktop only */
+@media (min-width: 769px) {
+  body {
+    background-image:
+      radial-gradient(ellipse 70% 50% at 15% 20%,  rgba(124, 58, 237, 0.22) 0%, transparent 55%),
       radial-gradient(ellipse 50% 60% at 85% 80%,  rgba(109, 40, 217, 0.18) 0%, transparent 50%),
       radial-gradient(ellipse 80% 30% at 50% 100%, rgba(167, 139, 250, 0.08) 0%, transparent 60%),
       radial-gradient(ellipse 30% 40% at 90% 10%,  rgba(139, 92, 246, 0.12) 0%, transparent 50%);
-    background-attachment: fixed;
-    background-size: 100% 100%;
     animation: bgBreath 14s ease-in-out infinite alternate;
-    min-height: 100vh;
   }
 }
 
@@ -174,7 +183,11 @@ body::before {
 @media (max-width: 768px) {
   .app-container {
     border-radius: 10px;
-    margin: 0 8px;
+    margin: 0 4px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(13, 13, 20, 0.85);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.50);
   }
 }
 
@@ -383,11 +396,16 @@ select.toolbar-btn {
 .card-frame {
   border-radius: 14px;
   position: relative;
-  overflow: visible !important;
+  overflow: hidden;
   transition: box-shadow 0.3s ease;
-  width: max-content;
-  min-width: 700px;
-  max-width: 95vw;
+  max-width: 100%;
+}
+
+@media (min-width: 769px) {
+  .card-frame {
+    min-width: 700px;
+    max-width: 95vw;
+  }
 }
 
 /* ==================== CARD STYLE PRESETS ==================== */
@@ -566,7 +584,7 @@ select.toolbar-btn {
 /* VS Code window */
 .vscode-win {
   border-radius: 10px;
-  overflow: visible !important;
+  overflow: hidden;
   box-shadow: 0 16px 48px rgba(0,0,0,0.55);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -575,12 +593,10 @@ select.toolbar-btn {
 }
 .vscode-body {
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
-  width: max-content;
-  min-width: 100%;
 }
 .vscode-body pre,
 .vscode-body code {
@@ -590,10 +606,8 @@ select.toolbar-btn {
   white-space: pre !important;
   word-break: normal !important;
   overflow-wrap: normal !important;
-  overflow: visible !important;
-  max-width: none !important;
-  width: max-content;
-  min-width: 100%;
+  overflow: hidden;
+  max-width: 100%;
   padding-right: 24px;
   tab-size: 2;
   font-variant-ligatures: none;

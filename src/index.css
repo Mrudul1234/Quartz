@@ -399,7 +399,6 @@ select.toolbar-btn {
     0 32px 80px rgba(0, 0, 0, 0.35),
     0 0 60px rgba(124, 58, 237, 0.12);
 }
-
 .preset-gradient:hover {
   box-shadow:
     0 0 0 1px rgba(167, 139, 250, 0.25),
@@ -417,7 +416,6 @@ select.toolbar-btn {
     0 8px 32px rgba(0, 0, 0, 0.40),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
-
 .preset-glass:hover {
   box-shadow:
     0 8px 40px rgba(0, 0, 0, 0.50),
@@ -433,7 +431,6 @@ select.toolbar-btn {
     0 0 60px rgba(124, 58, 237, 0.15),
     inset 0 0 20px rgba(124, 58, 237, 0.04);
 }
-
 .preset-neon:hover {
   box-shadow:
     0 0 0 1px rgba(167, 139, 250, 0.25),
@@ -447,25 +444,45 @@ select.toolbar-btn {
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
 }
-
 .preset-flat:hover {
   box-shadow: 0 24px 72px rgba(0, 0, 0, 0.65);
 }
 
-/* ==================== 3D TILT ==================== */
-.tilt-card {
-  transform-style: preserve-3d;
-  will-change: transform;
-  cursor: default;
+/* Glossy Presets */
+.preset-glossy-violet {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.13) 0%, transparent 55%),
+    linear-gradient(135deg, #2d1b69 0%, #1a0533 100%);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
 }
-
-.tilt-glare {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 10;
-  transition: background 0.05s ease;
+.preset-glossy-midnight {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 50%),
+    linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
+}
+.preset-glossy-rose {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%),
+    linear-gradient(135deg, #4a0030 0%, #1a001a 100%);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
+}
+.preset-glossy-ocean {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%),
+    linear-gradient(135deg, #003654 0%, #001a2e 100%);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
+}
+.preset-glossy-obsidian {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 45%),
+    linear-gradient(160deg, #1a1a1a 0%, #0a0a0a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
 }
 
 .preset-desc {

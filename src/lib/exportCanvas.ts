@@ -75,21 +75,21 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
   const ctx = canvas.getContext('2d')!;
   ctx.scale(canvasWidth / totalW, canvasHeight / totalH);
 
+  const outerX = EDGE_BLEED;
+  const outerY = EDGE_BLEED;
+  const outerW = totalW - EDGE_BLEED * 2;
+  const outerH = totalH - EDGE_BLEED * 2;
+
   // Draw outer background (card frame) and clip to rounded rect
   ctx.save();
-  roundRect(ctx, 0, 0, totalW, totalH, config.borderRadius);
-  applyBackground(ctx, cardBg, totalW, totalH);
+  roundRect(ctx, outerX, outerY, outerW, outerH, config.borderRadius);
+  applyBackground(ctx, cardBg, outerW, outerH);
   ctx.restore();
 
   // Clip all subsequent drawing to the outer rounded rect
   ctx.save();
-  roundRect(ctx, 0, 0, totalW, totalH, config.borderRadius);
+  roundRect(ctx, outerX, outerY, outerW, outerH, config.borderRadius);
   ctx.clip();
-
-  // Window position
-  const winX = FRAME_P;
-  const winY = FRAME_P;
-  const winRadius = Math.max(config.borderRadius - 4, 0);
 
   // Window shadow
   if (config.shadow) {

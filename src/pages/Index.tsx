@@ -137,7 +137,7 @@ const Index = () => {
           made with <span className="love">love</span> by{' '}
           <a
             className="author"
-            href="https://github.com/Mrudul1234"
+            href="https://github.com/Mrudul1234/Quartz"
             target="_blank"
             rel="noopener noreferrer"
           >

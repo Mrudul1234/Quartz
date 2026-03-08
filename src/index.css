@@ -584,7 +584,7 @@ select.toolbar-btn {
 /* VS Code window */
 .vscode-win {
   border-radius: 10px;
-  overflow: visible !important;
+  overflow: hidden;
   box-shadow: 0 16px 48px rgba(0,0,0,0.55);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -593,12 +593,10 @@ select.toolbar-btn {
 }
 .vscode-body {
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
-  width: max-content;
-  min-width: 100%;
 }
 .vscode-body pre,
 .vscode-body code {
@@ -608,10 +606,8 @@ select.toolbar-btn {
   white-space: pre !important;
   word-break: normal !important;
   overflow-wrap: normal !important;
-  overflow: visible !important;
-  max-width: none !important;
-  width: max-content;
-  min-width: 100%;
+  overflow: hidden;
+  max-width: 100%;
   padding-right: 24px;
   tab-size: 2;
   font-variant-ligatures: none;

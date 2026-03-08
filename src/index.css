@@ -347,11 +347,10 @@ select.toolbar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 36px 48px;
-  min-height: 320px;
+  padding: 40px 56px;
+  min-height: 300px;
   max-height: 600px;
   position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
   overflow: auto;
 }
 

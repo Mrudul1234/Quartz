@@ -598,6 +598,37 @@ select.toolbar-btn {
 .font-settings-heading { font-family: 'Syne', sans-serif; font-weight: 600; }
 .font-dimension { font-family: 'IBM Plex Mono', monospace; }
 .font-footer { font-family: 'Bricolage Grotesque', serif; font-weight: 300; }
+.font-syne { font-family: 'Syne', sans-serif; font-weight: 500; }
+
+/* VS Code window */
+.vscode-win {
+  border-radius: 10px;
+  overflow: visible !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+}
+.vscode-body {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+.vscode-body pre,
+.vscode-body code {
+  white-space: pre !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  overflow: visible !important;
+  max-width: none !important;
+  width: max-content;
+  padding-right: 24px;
+}
+.vscode-body code span {
+  display: inline !important;
+  position: static !important;
+  transform: none !important;
+  white-space: pre !important;
+  overflow: visible !important;
+  max-width: none !important;
+  vertical-align: baseline !important;
+}
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {

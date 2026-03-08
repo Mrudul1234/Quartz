@@ -116,8 +116,8 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
               <div key={i} className="flex" style={{ minHeight: `${store.fontSize * store.lineHeight}px` }}>
                 {store.showLineNumbers && (
                   <span
-                    className="select-none text-right mr-4 shrink-0"
-                    style={{ color: 'rgba(255,255,255,0.2)', width: lineNumberWidth }}
+                    className="line-number select-none text-right mr-4 shrink-0"
+                    style={{ width: lineNumberWidth }}
                   >
                     {i + 1}
                   </span>

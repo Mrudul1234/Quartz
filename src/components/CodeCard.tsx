@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { useQuartzStore } from '@/store/useQuartzStore';
 import { themes, codeFonts, cardWidthPresets } from '@/lib/themes';
 import { tokenizeLine, getTokenColor, detectLanguage } from '@/lib/highlighter';
+import { use3DTilt } from '@/hooks/use3DTilt';
 
 interface CodeCardProps {
   cardRef: React.RefObject<HTMLDivElement>;
@@ -14,8 +15,16 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   const cardWidth = cardWidthPresets[store.cardWidthIndex];
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const codeContainerRef = useRef<HTMLDivElement>(null);
+  const { cardRef: tiltRef, glareRef, handleMouseMove, handleMouseLeave } = use3DTilt();
 
   const lines = store.code.split('\n');
+
+  // Sync tiltRef with cardRef
+  useEffect(() => {
+    if (cardRef.current) {
+      (tiltRef as React.MutableRefObject<HTMLDivElement | null>).current = cardRef.current;
+    }
+  }, [cardRef, tiltRef]);
 
   // Global paste handler
   useEffect(() => {
@@ -50,24 +59,34 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
 
   const lineNumberWidth = `${Math.max(2, String(lines.length).length) * 0.7}em`;
 
+  const cardStyleClass = `preset-${store.cardStyle}`;
+
   return (
     <div
       ref={cardRef}
-      className="code-card card-frame"
+      className={`code-card card-frame tilt-card ${cardStyleClass}`}
       onClick={handleCardClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
         background: store.backgroundStyle,
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
         width: cardWidth.width,
         minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '560px',
+        transition: 'transform 0.1s ease',
       }}
     >
+      {/* Glare overlay */}
+      <div ref={glareRef} className="tilt-glare" />
+
       <div
         style={{
           background: theme.bg,
           borderRadius: `${Math.max(store.borderRadius - 4, 0)}px`,
           overflow: 'hidden',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         {/* Window Chrome — glass header */}
@@ -90,7 +109,6 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
 
         {/* Code Area */}
         <div className="relative" style={{ padding: '20px 24px', minHeight: '280px', minWidth: '380px' }}>
-          {/* Line number gutter border */}
           {store.showLineNumbers && (
             <div
               className="absolute top-0 bottom-0"
@@ -102,7 +120,6 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             />
           )}
 
-          {/* Rendered code overlay */}
           <div
             ref={codeContainerRef}
             className={`${font.className} select-none pointer-events-none overflow-hidden`}
@@ -130,7 +147,6 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             ))}
           </div>
 
-          {/* Watermark */}
           {store.showWatermark && (
             <div
               className="font-toolbar-btn text-right mt-2"
@@ -140,7 +156,6 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             </div>
           )}
 
-          {/* Editable textarea */}
           <textarea
             ref={textareaRef}
             value={store.code}

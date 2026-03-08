@@ -20,6 +20,7 @@ interface QuartzState {
   fontIndex: number;
   cardWidthIndex: number;
   showWatermark: boolean;
+  cardStyle: string;
   setCode: (code: string) => void;
   setLanguage: (lang: string) => void;
   setThemeIndex: (i: number) => void;
@@ -38,6 +39,7 @@ interface QuartzState {
   setFontIndex: (i: number) => void;
   setCardWidthIndex: (i: number) => void;
   toggleWatermark: () => void;
+  setCardStyle: (style: string) => void;
 }
 
 const defaultCode = `const crystallize = (idea) => {
@@ -67,6 +69,7 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   fontIndex: 0,
   cardWidthIndex: 1,
   showWatermark: false,
+  cardStyle: 'gradient',
   setCode: (code) => set({ code }),
   setLanguage: (language) => set({ language }),
   setThemeIndex: (themeIndex) => set({ themeIndex }),
@@ -85,4 +88,5 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   setFontIndex: (fontIndex) => set({ fontIndex }),
   setCardWidthIndex: (cardWidthIndex) => set({ cardWidthIndex }),
   toggleWatermark: () => set((s) => ({ showWatermark: !s.showWatermark })),
+  setCardStyle: (cardStyle) => set({ cardStyle }),
 }));

@@ -387,21 +387,92 @@ select.toolbar-btn {
 .card-frame {
   border-radius: 16px;
   position: relative;
+}
+
+/* ==================== CARD STYLE PRESETS ==================== */
+.preset-gradient {
+  background: linear-gradient(135deg, #1a0533, #2d1b69);
   border: 1px solid rgba(167, 139, 250, 0.18);
   box-shadow:
     0 0 0 1px rgba(124, 58, 237, 0.08),
     0 8px 32px rgba(0, 0, 0, 0.45),
     0 32px 80px rgba(0, 0, 0, 0.35),
     0 0 60px rgba(124, 58, 237, 0.12);
-  transition: box-shadow 0.3s ease;
 }
 
-.card-frame:hover {
+.preset-gradient:hover {
   box-shadow:
     0 0 0 1px rgba(167, 139, 250, 0.25),
     0 8px 32px rgba(0, 0, 0, 0.5),
     0 32px 80px rgba(0, 0, 0, 0.4),
     0 0 80px rgba(124, 58, 237, 0.20);
+}
+
+.preset-glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.preset-glass:hover {
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.preset-neon {
+  background: #0a0a0f;
+  border: 1px solid rgba(167, 139, 250, 0.60);
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.15),
+    0 0 20px rgba(124, 58, 237, 0.35),
+    0 0 60px rgba(124, 58, 237, 0.15),
+    inset 0 0 20px rgba(124, 58, 237, 0.04);
+}
+
+.preset-neon:hover {
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.25),
+    0 0 30px rgba(124, 58, 237, 0.50),
+    0 0 80px rgba(124, 58, 237, 0.25),
+    inset 0 0 30px rgba(124, 58, 237, 0.06);
+}
+
+.preset-flat {
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+}
+
+.preset-flat:hover {
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.65);
+}
+
+/* ==================== 3D TILT ==================== */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  cursor: default;
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 10;
+  transition: background 0.05s ease;
+}
+
+.preset-desc {
+  font-size: 10px;
+  color: rgba(107, 107, 138, 0.60);
+  font-family: 'DM Sans', sans-serif;
+  margin-left: auto;
 }
 
 /* ==================== VSCODE HEADER ==================== */

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuartzStore } from '@/store/useQuartzStore';
-import { themes, gradientPresets, platformPresets, codeFonts, cardWidthPresets } from '@/lib/themes';
+import { themes, gradientPresets, platformPresets, codeFonts, cardWidthPresets, extMap } from '@/lib/themes';
 import { captureElement } from '@/lib/exportUtils';
 import ActionButton from '@/components/ui/action-button';
 import { Download, Copy, ClipboardCheck, Settings, ExternalLink } from 'lucide-react';
@@ -17,6 +17,13 @@ interface TopbarProps {
 
 const languages = ['javascript', 'typescript', 'python', 'rust', 'go', 'html', 'css', 'java', 'c', 'cpp'];
 
+const cardStylePresets = [
+  { id: 'gradient', label: '⬛ Gradient', desc: 'Default violet' },
+  { id: 'glass', label: '🪟 Frosted Glass', desc: 'Blur + transparency' },
+  { id: 'neon', label: '💜 Neon Outline', desc: 'Glowing border' },
+  { id: 'flat', label: '◼ Minimal Flat', desc: 'Clean dark' },
+];
+
 const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
   const store = useQuartzStore();
   const [pngPending, setPngPending] = useState(false);
@@ -24,6 +31,8 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
   const [copyPending, setCopyPending] = useState(false);
   const [copied, setCopied] = useState(false);
   const [themeSearch, setThemeSearch] = useState('');
+  const [gistUrl, setGistUrl] = useState('');
+  const [gistPending, setGistPending] = useState(false);
 
   async function doExport(format: 'png' | 'jpg') {
     const setter = format === 'png' ? setPngPending : setJpgPending;
@@ -31,7 +40,11 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
     try {
       const el = cardRef.current;
       if (!el) return;
+      // Reset tilt transform before capture
+      const origTransform = el.style.transform;
+      el.style.transform = 'none';
       const canvas = await captureElement(el);
+      el.style.transform = origTransform;
       const mime = format === 'png' ? 'image/png' : 'image/jpeg';
       const quality = format === 'png' ? 1.0 : 0.95;
       const url = canvas.toDataURL(mime, quality);
@@ -49,7 +62,10 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
     try {
       const el = cardRef.current;
       if (!el) return;
+      const origTransform = el.style.transform;
+      el.style.transform = 'none';
       const canvas = await captureElement(el);
+      el.style.transform = origTransform;
       canvas.toBlob(async (blob) => {
         if (!blob) return;
         try {
@@ -65,6 +81,35 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       }, 'image/png');
     } finally {
       setCopyPending(false);
+    }
+  }
+
+  async function importGist(url: string) {
+    setGistPending(true);
+    try {
+      const match = url.match(/gist\.github\.com\/(?:[^/]+\/)?([a-f0-9]+)/);
+      if (!match) throw new Error('Invalid Gist URL');
+
+      const res = await fetch(`https://api.github.com/gists/${match[1]}`);
+      if (!res.ok) throw new Error('Gist not found');
+
+      const data = await res.json();
+      const files = Object.values(data.files) as any[];
+      if (files.length === 0) throw new Error('Empty gist');
+
+      const file = files[0];
+      store.setCode(file.content);
+      store.setFilename(file.filename);
+
+      const ext = file.filename.split('.').pop()?.toLowerCase() ?? '';
+      store.setLanguage(extMap[ext] ?? 'javascript');
+
+      toast.success(`↗ Imported: ${file.filename}`);
+      setGistUrl('');
+    } catch (err: any) {
+      toast.error(`Import failed: ${err.message}`);
+    } finally {
+      setGistPending(false);
     }
   }
 
@@ -128,6 +173,25 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
         ))}
       </select>
 
+      {/* Card Style dropdown */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <button className="toolbar-btn">Style ▾</button>
+        </PopoverTrigger>
+        <PopoverContent className="dropdown-menu w-52 p-0">
+          {cardStylePresets.map(preset => (
+            <button
+              key={preset.id}
+              onClick={() => store.setCardStyle(preset.id)}
+              className={`dropdown-item w-full text-left flex items-center justify-between ${store.cardStyle === preset.id ? 'active' : ''}`}
+              style={{ fontSize: '12px' }}
+            >
+              <span>{preset.label}</span>
+              <span className="preset-desc">{preset.desc}</span>
+            </button>
+          ))}
+        </PopoverContent>
+      </Popover>
 
       <div className="toolbar-divider" />
 
@@ -225,6 +289,35 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
         ))}
       </select>
 
+      {/* Gist Import */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <button className="toolbar-btn">↗ Gist</button>
+        </PopoverTrigger>
+        <PopoverContent className="dropdown-menu w-80 p-3">
+          <p className="text-xs mb-2" style={{ color: '#a1a1c2' }}>Paste GitHub Gist URL</p>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="https://gist.github.com/..."
+              value={gistUrl}
+              onChange={e => setGistUrl(e.target.value)}
+              className="flex-1 bg-transparent border rounded-md px-2 py-1.5 text-xs outline-none font-code"
+              style={{ borderColor: 'rgba(167,139,250,0.20)', color: '#c4b5fd' }}
+              onKeyDown={e => e.key === 'Enter' && gistUrl && importGist(gistUrl)}
+            />
+            <button
+              className="toolbar-btn export-primary"
+              onClick={() => importGist(gistUrl)}
+              disabled={gistPending || !gistUrl}
+              style={{ opacity: gistPending || !gistUrl ? 0.5 : 1 }}
+            >
+              {gistPending ? '…' : 'Import'}
+            </button>
+          </div>
+        </PopoverContent>
+      </Popover>
+
       {/* Settings popover */}
       <Popover>
         <PopoverTrigger asChild>
@@ -267,26 +360,22 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
 
       {/* Right side — export actions */}
       <div className="flex items-center gap-1.5 flex-shrink-0">
-        {/* Copy */}
         <ActionButton isPending={copyPending} onClick={copyToClipboard} variant="ghost" size="sm"
           className="toolbar-btn">
           {copied ? <ClipboardCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           <span>Copy</span>
         </ActionButton>
 
-        {/* Tweet */}
         <button onClick={openTweet} className="toolbar-btn">
           <ExternalLink className="w-3 h-3" />
           <span>Tweet</span>
         </button>
 
-        {/* PNG */}
         <ActionButton isPending={pngPending} onClick={() => doExport('png')} variant="default" size="sm"
           className="toolbar-btn export-primary" data-export-png>
           <Download className="w-3.5 h-3.5" /> PNG
         </ActionButton>
 
-        {/* JPG */}
         <ActionButton isPending={jpgPending} onClick={() => doExport('jpg')} variant="outline" size="sm"
           className="toolbar-btn export-primary">
           <Download className="w-3.5 h-3.5" /> JPG

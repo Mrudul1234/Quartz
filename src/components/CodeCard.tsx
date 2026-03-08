@@ -71,7 +71,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         style={{
           background: theme.bg,
           borderRadius: `${Math.max(store.borderRadius - 4, 0)}px`,
-          overflow: 'visible',
+          overflow: 'hidden',
           position: 'relative',
           zIndex: 1,
         }}

@@ -297,6 +297,24 @@ body::before {
   cursor: pointer;
 }
 
+/* Select dropdown dark styling */
+.toolbar-btn option,
+select.toolbar-btn option {
+  background: #13131f;
+  color: #c4b5fd;
+  padding: 6px 10px;
+}
+
+.toolbar-btn option:hover,
+select.toolbar-btn option:hover {
+  background: rgba(124, 58, 237, 0.25);
+}
+
+select.toolbar-btn {
+  background-color: rgba(124, 58, 237, 0.06);
+  color: #c4b5fd;
+}
+
 .toolbar-slider::-moz-range-track {
   height: 3px;
   border-radius: 2px;

@@ -91,9 +91,9 @@ const Index = () => {
   }, [store.themeIndex, store.language, store.fontIndex, store.platformIndex, store.showLineNumbers, store.showWindowChrome, store.showShadow, store.cardWidthIndex]);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center" style={{ zIndex: 1 }}>
+    <div className="relative min-h-screen flex flex-col items-center" style={{ paddingTop: '28px', zIndex: 1 }}>
       {/* Logo — centred above container */}
-      <div className="quartz-logo-wrap" style={{ paddingTop: '48px' }}>
+      <div className="quartz-logo-wrap">
         <span className="quartz-logo cursor-default">
           <span className="gem">◈</span>quartz
         </span>

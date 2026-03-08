@@ -91,6 +91,11 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
   roundRect(ctx, outerX, outerY, outerW, outerH, config.borderRadius);
   ctx.clip();
 
+  // Window position
+  const winX = outerX + FRAME_P;
+  const winY = outerY + FRAME_P;
+  const winRadius = Math.max(config.borderRadius - 4, 0);
+
   // Window shadow
   if (config.shadow) {
     ctx.save();

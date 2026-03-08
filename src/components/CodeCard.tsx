@@ -148,7 +148,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             value={store.code}
             onChange={handleCodeChange}
             onScroll={handleScroll}
-            className={`absolute inset-0 w-full h-full resize-none ${font.className} p-0 m-0 border-none outline-none`}
+            className={`code-textarea absolute inset-0 w-full h-full resize-none ${font.className} p-0 m-0 border-none outline-none`}
             style={{
               fontSize: `${store.fontSize}px`,
               lineHeight: store.lineHeight,

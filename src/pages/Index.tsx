@@ -122,7 +122,7 @@ const Index = () => {
       {/* Footer hint */}
       <div className="py-4">
         <span className="font-footer text-xs" style={{ color: '#6b6b8a' }}>
-          Start typing or drop a file to get started.
+          Made with love by Mrudul
         </span>
       </div>
     </div>

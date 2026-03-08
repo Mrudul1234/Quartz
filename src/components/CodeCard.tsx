@@ -80,9 +80,9 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         {store.showWindowChrome && (
           <div className="vscode-header">
             <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+              <div className="w-[13px] h-[13px] rounded-full" style={{ background: '#ff5f57' }} />
+              <div className="w-[13px] h-[13px] rounded-full" style={{ background: '#febc2e' }} />
+              <div className="w-[13px] h-[13px] rounded-full" style={{ background: '#28c840' }} />
             </div>
             <input
               value={store.filename}

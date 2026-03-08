@@ -396,11 +396,16 @@ select.toolbar-btn {
 .card-frame {
   border-radius: 14px;
   position: relative;
-  overflow: visible !important;
+  overflow: hidden;
   transition: box-shadow 0.3s ease;
-  width: max-content;
-  min-width: 700px;
-  max-width: 95vw;
+  max-width: 100%;
+}
+
+@media (min-width: 769px) {
+  .card-frame {
+    min-width: 700px;
+    max-width: 95vw;
+  }
 }
 
 /* ==================== CARD STYLE PRESETS ==================== */

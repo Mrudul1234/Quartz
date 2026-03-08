@@ -18,8 +18,9 @@ const Index = () => {
     const calcScale = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const maxW = vw < 768 ? vw - 32 : vw * 0.75;
-      const maxH = (vh - 220) * 0.8;
+      const isMobile = vw < 768;
+      const maxW = isMobile ? vw - 16 : vw * 0.75;
+      const maxH = isMobile ? vh * 0.6 : (vh - 220) * 0.8;
       const pw = platform.width > 0 ? platform.width : 800;
       const ph = platform.height > 0 ? platform.height : 600;
       setScale(Math.min(maxW / pw, maxH / ph, 1));

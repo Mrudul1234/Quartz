@@ -347,8 +347,8 @@ select.toolbar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 56px;
-  min-height: 300px;
+  padding: 52px 64px;
+  min-height: 380px;
   max-height: 600px;
   position: relative;
   overflow: auto;
@@ -385,6 +385,9 @@ select.toolbar-btn {
   position: relative;
   overflow: visible !important;
   transition: box-shadow 0.3s ease;
+  width: max-content;
+  min-width: 700px;
+  max-width: 95vw;
 }
 
 /* ==================== CARD STYLE PRESETS ==================== */
@@ -450,7 +453,7 @@ select.toolbar-btn {
 
 /* ==================== VSCODE HEADER ==================== */
 .vscode-header {
-  height: 36px;
+  height: 40px;
   border-radius: 10px 10px 0 0;
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(8px);
@@ -508,7 +511,7 @@ select.toolbar-btn {
   color: rgba(167, 139, 250, 0.55);
   letter-spacing: 0.04em;
   text-align: center;
-  padding: 5px 0 0;
+  padding: 8px 0 0;
   user-select: none;
   transition: color 0.3s ease;
   animation: badgeFade 0.4s ease;
@@ -530,8 +533,8 @@ select.toolbar-btn {
 }
 
 .code-card code {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.65;
   display: block;
   white-space: pre;
 }
@@ -565,20 +568,40 @@ select.toolbar-btn {
   border-radius: 10px;
   overflow: visible !important;
   box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga' 0, 'calt' 1;
 }
 .vscode-body {
   overflow-x: auto;
   overflow-y: visible;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  width: max-content;
+  min-width: 100%;
 }
 .vscode-body pre,
 .vscode-body code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 15px;
+  line-height: 1.65;
   white-space: pre !important;
   word-break: normal !important;
   overflow-wrap: normal !important;
   overflow: visible !important;
   max-width: none !important;
   width: max-content;
+  min-width: 100%;
   padding-right: 24px;
+  tab-size: 2;
+  font-variant-ligatures: none;
+  letter-spacing: 0;
+}
+.vscode-body pre {
+  width: max-content;
+  min-width: 100%;
 }
 .vscode-body code span {
   display: inline !important;
@@ -588,6 +611,98 @@ select.toolbar-btn {
   overflow: visible !important;
   max-width: none !important;
   vertical-align: baseline !important;
+  line-height: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  letter-spacing: 0;
+}
+
+/* Line number gutter */
+.line-number {
+  width: 40px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.22);
+  padding-right: 14px;
+  text-align: right;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Shiki container fix */
+pre.shiki {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+  white-space: pre !important;
+  width: max-content !important;
+  min-width: 100% !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  tab-size: 2 !important;
+}
+pre.shiki code {
+  display: block !important;
+  width: max-content !important;
+  min-width: 100% !important;
+  padding: 0 !important;
+  background: transparent !important;
+  font-size: inherit !important;
+}
+pre.shiki .line {
+  display: block !important;
+  white-space: pre !important;
+  min-height: 1em;
+}
+pre.shiki span {
+  display: inline !important;
+  white-space: pre !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: 0 !important;
+}
+
+/* Textarea sync fix */
+.code-textarea {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 15px !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0 !important;
+  tab-size: 2 !important;
+  white-space: pre !important;
+  word-break: normal !important;
+  resize: none;
+  caret-color: #a78bfa;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Empty line height fix */
+.vscode-body .line,
+pre.shiki .line {
+  display: block;
+  min-height: calc(15px * 1.65);
+  white-space: pre;
+}
+.vscode-body .line:empty::before {
+  content: '\200B';
+}
+
+/* Responsive scaling for bigger card */
+@media (max-width: 900px) {
+  .canvas-area {
+    padding: 32px 24px;
+    align-items: flex-start;
+  }
+  .card-frame {
+    min-width: unset;
+    width: 100%;
+    transform-origin: top left;
+  }
+}
+@media (max-width: 600px) {
+  .canvas-area {
+    padding: 20px 12px;
+  }
 }
 
 /* Scrollbar styling */

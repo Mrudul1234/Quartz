@@ -62,7 +62,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
         width: cardWidth.width,
-        minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '560px',
+        minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '700px',
         overflow: 'visible',
       }}
     >
@@ -80,22 +80,22 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         {store.showWindowChrome && (
           <div className="vscode-header">
             <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+              <div className="w-[13px] h-[13px] rounded-full" style={{ background: '#ff5f57' }} />
+              <div className="w-[13px] h-[13px] rounded-full" style={{ background: '#febc2e' }} />
+              <div className="w-[13px] h-[13px] rounded-full" style={{ background: '#28c840' }} />
             </div>
             <input
               value={store.filename}
               onChange={(e) => store.setFilename(e.target.value)}
-              className={`bg-transparent text-xs ${font.className} ml-2 outline-none border-none filename-tab`}
-              style={{ color: 'rgba(255,255,255,0.38)', fontWeight: 500, fontSize: '12px' }}
+              className={`bg-transparent text-[13px] ${font.className} ml-2 outline-none border-none filename-tab`}
+              style={{ color: 'rgba(255,255,255,0.50)', fontWeight: 500 }}
               onClick={(e) => e.stopPropagation()}
             />
           </div>
         )}
 
         {/* Code Area */}
-        <div className="vscode-body relative" style={{ padding: '14px 24px 18px 16px', minHeight: '280px', minWidth: '380px' }}>
+        <div className="vscode-body relative" style={{ padding: '18px 28px 22px 18px', minHeight: '280px', minWidth: '380px' }}>
           {store.showLineNumbers && (
             <div
               className="absolute top-0 bottom-0"
@@ -116,8 +116,8 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
               <div key={i} className="flex" style={{ minHeight: `${store.fontSize * store.lineHeight}px` }}>
                 {store.showLineNumbers && (
                   <span
-                    className="select-none text-right mr-4 shrink-0"
-                    style={{ color: 'rgba(255,255,255,0.2)', width: lineNumberWidth }}
+                    className="line-number select-none text-right mr-4 shrink-0"
+                    style={{ width: lineNumberWidth }}
                   >
                     {i + 1}
                   </span>
@@ -148,16 +148,16 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             value={store.code}
             onChange={handleCodeChange}
             onScroll={handleScroll}
-            className={`absolute inset-0 w-full h-full resize-none ${font.className} p-0 m-0 border-none outline-none`}
+            className={`code-textarea absolute inset-0 w-full h-full resize-none ${font.className} p-0 m-0 border-none outline-none`}
             style={{
               fontSize: `${store.fontSize}px`,
               lineHeight: store.lineHeight,
               color: 'transparent',
               caretColor: theme.text,
               background: 'transparent',
-              paddingLeft: store.showLineNumbers ? `calc(${lineNumberWidth} + 1rem + 16px)` : '16px',
-              paddingTop: '14px',
-              paddingRight: '16px',
+              paddingLeft: store.showLineNumbers ? `calc(${lineNumberWidth} + 1rem + 18px)` : '18px',
+              paddingTop: '18px',
+              paddingRight: '28px',
               WebkitTextFillColor: 'transparent',
             }}
             spellCheck={false}

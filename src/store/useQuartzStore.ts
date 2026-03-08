@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { gradientPresets } from '@/lib/themes';
+import { gradientPresets, langExtMap } from '@/lib/themes';
 
 interface QuartzState {
   code: string;

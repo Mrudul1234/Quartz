@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { gradientPresets } from '@/lib/themes';
+import { gradientPresets, langExtMap } from '@/lib/themes';
 
 interface QuartzState {
   code: string;
@@ -71,7 +71,11 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   showWatermark: false,
   cardStyle: 'gradient',
   setCode: (code) => set({ code }),
-  setLanguage: (language) => set({ language }),
+  setLanguage: (language) => set((s) => {
+    const baseName = s.filename.replace(/\.[^.]+$/, '');
+    const ext = langExtMap[language] || 'js';
+    return { language, filename: `${baseName}.${ext}` };
+  }),
   setThemeIndex: (themeIndex) => set({ themeIndex }),
   setFontSize: (fontSize) => set({ fontSize }),
   setPadding: (padding) => set({ padding }),

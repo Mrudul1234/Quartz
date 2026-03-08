@@ -72,11 +72,16 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
   const ctx = canvas.getContext('2d')!;
   ctx.scale(SCALE, SCALE);
 
-  // Draw outer background (card frame)
+  // Draw outer background (card frame) and clip to rounded rect
   ctx.save();
   roundRect(ctx, 0, 0, totalW, totalH, config.borderRadius);
   applyBackground(ctx, cardBg, totalW, totalH);
   ctx.restore();
+
+  // Clip all subsequent drawing to the outer rounded rect
+  ctx.save();
+  roundRect(ctx, 0, 0, totalW, totalH, config.borderRadius);
+  ctx.clip();
 
   // Window position
   const winX = FRAME_P;
@@ -186,10 +191,11 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
     ctx.fillText('Made with ◈ Quartz', winX + codeW - 12, winY + codeH - 6);
   }
 
+  // Restore the outer clip
+  ctx.restore();
+
   return canvas;
 }
-
-// Helpers
 
 function roundRect(
   ctx: CanvasRenderingContext2D,

@@ -20,6 +20,7 @@ interface QuartzState {
   fontIndex: number;
   cardWidthIndex: number;
   showWatermark: boolean;
+  cardStyle: string;
   setCode: (code: string) => void;
   setLanguage: (lang: string) => void;
   setThemeIndex: (i: number) => void;

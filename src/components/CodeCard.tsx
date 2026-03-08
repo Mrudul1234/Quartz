@@ -60,7 +60,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
         width: cardWidth.width,
-        minWidth: '560px',
+        minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '560px',
       }}
     >
       <div
@@ -89,7 +89,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         )}
 
         {/* Code Area */}
-        <div className="relative" style={{ padding: '16px 20px', minHeight: '220px', minWidth: '400px' }}>
+        <div className="relative" style={{ padding: '12px 14px', minHeight: '180px', minWidth: '280px' }}>
           {/* Line number gutter border */}
           {store.showLineNumbers && (
             <div

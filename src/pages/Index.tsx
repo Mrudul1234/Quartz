@@ -12,12 +12,22 @@ const Index = () => {
   const cardWidth = cardWidthPresets[store.cardWidthIndex];
   const [dragging, setDragging] = useState(false);
 
-  // Scale to fit viewport
-  const maxW = typeof window !== 'undefined' ? window.innerWidth * 0.75 : 900;
-  const maxH = typeof window !== 'undefined' ? (window.innerHeight - 220) * 0.8 : 600;
-  const scaleX = maxW / (platform.width > 0 ? platform.width : 800);
-  const scaleY = maxH / (platform.height > 0 ? platform.height : 600);
-  const scale = Math.min(scaleX, scaleY, 1);
+  // Scale to fit viewport — responsive
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const calcScale = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const maxW = vw < 768 ? vw - 32 : vw * 0.75;
+      const maxH = (vh - 220) * 0.8;
+      const pw = platform.width > 0 ? platform.width : 800;
+      const ph = platform.height > 0 ? platform.height : 600;
+      setScale(Math.min(maxW / pw, maxH / ph, 1));
+    };
+    calcScale();
+    window.addEventListener('resize', calcScale);
+    return () => window.removeEventListener('resize', calcScale);
+  }, [platform.width, platform.height]);
 
   // Keyboard shortcuts
   useEffect(() => {

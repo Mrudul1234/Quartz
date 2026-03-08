@@ -62,7 +62,7 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
   const codeW = Math.ceil(maxLineWidth + GUTTER_W + H_PAD * 2 + 48);
   const codeH = Math.ceil(tokenizedLines.length * LINE_H + V_PAD * 2 + CHROME_H + (showWatermark ? 24 : 0));
   const FRAME_P = padding;
-  const EDGE_BLEED = 2; // safety margin so rounded edges/shadows are never clipped
+  const EDGE_BLEED = 0;
   const totalW = codeW + FRAME_P * 2 + EDGE_BLEED * 2;
   const totalH = codeH + FRAME_P * 2 + EDGE_BLEED * 2;
 

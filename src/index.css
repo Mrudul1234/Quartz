@@ -196,6 +196,21 @@ body::before {
 }
 .toolbar::-webkit-scrollbar { display: none; }
 
+@media (max-width: 768px) {
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 6px 8px;
+    white-space: normal;
+  }
+  .toolbar-divider {
+    display: none;
+  }
+  .slider-wrap {
+    display: none;
+  }
+}
+
 .toolbar-divider {
   width: 1px;
   height: 20px;

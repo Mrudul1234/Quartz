@@ -145,17 +145,6 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
         ))}
       </select>
 
-      {/* Font */}
-      <select
-        value={store.fontIndex}
-        onChange={(e) => store.setFontIndex(Number(e.target.value))}
-        className="text-xs rounded px-2 py-1.5 outline-none border cursor-pointer shrink-0"
-        style={selectStyle}
-      >
-        {codeFonts.map((f, i) => (
-          <option key={i} value={i}>{f.name}</option>
-        ))}
-      </select>
 
       <div className="w-px h-5 shrink-0" style={{ background: '#2e2e4a' }} />
 

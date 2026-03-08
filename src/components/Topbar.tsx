@@ -173,7 +173,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
           className="w-14 accent-violet-500" />
       </label>
       <label className="flex items-center gap-1 text-[10px] shrink-0" style={{ color: '#a78bfa' }}>
-        ╭
+        <span style={{ fontSize: '11px', lineHeight: 1 }}>R</span>
         <input type="range" min={0} max={20} value={store.borderRadius}
           onChange={(e) => store.setBorderRadius(Number(e.target.value))}
           className="w-14 accent-violet-500" />

@@ -381,8 +381,11 @@ select.toolbar-btn {
 
 /* ==================== CARD FRAME ==================== */
 .card-frame {
-  border-radius: 16px;
+  border-radius: 14px;
   position: relative;
+  overflow: visible !important;
+  transition: box-shadow 0.3s ease;
+}
 }
 
 /* ==================== CARD STYLE PRESETS ==================== */

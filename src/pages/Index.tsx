@@ -24,7 +24,6 @@ const Index = () => {
     const handler = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {
         e.preventDefault();
-        // trigger PNG export via click
         const btn = document.querySelector('[data-export-png]') as HTMLButtonElement;
         btn?.click();
       }
@@ -83,35 +82,28 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center" style={{ zIndex: 1 }}>
-      {/* Header */}
-      <div className="flex items-center gap-2 pt-6 pb-4">
-        <span className="quartz-logo cursor-default">◈ quartz</span>
-        <span className="quartz-tagline ml-2">Crystallize your code.</span>
+      {/* Logo — centred above container */}
+      <div className="quartz-logo-wrap pt-8">
+        <span className="quartz-logo cursor-default">
+          <span className="gem">◈</span>quartz
+        </span>
+        <span className="quartz-tagline">Crystallize your code.</span>
       </div>
 
-      {/* Main container */}
-      <div
-        className="w-full max-w-[920px] mx-auto rounded-xl border flex flex-col overflow-hidden"
-        style={{
-          borderColor: '#2e2e4a',
-          background: 'rgba(19, 19, 31, 0.85)',
-          backdropFilter: 'blur(20px)',
-          boxShadow: '0 0 40px rgba(124,58,237,0.12)',
-        }}
-      >
+      {/* Main container — glassy */}
+      <div className="app-container w-full flex flex-col">
         <Topbar cardRef={cardRef} />
 
         {/* Dimension badge */}
         <div className="flex justify-center py-1.5">
-          <span className="font-dimension text-[10px]" style={{ color: '#6b6b8a' }}>
+          <span className="dimension-badge" key={store.platformIndex}>
             {platform.width} × {platform.height}px · {platform.name}
           </span>
         </div>
 
         {/* Canvas area */}
         <div
-          className={`flex-1 flex items-center justify-center checkerboard min-h-[400px] ${dragging ? 'drop-highlight' : ''}`}
-          style={{ padding: '48px 56px 44px' }}
+          className={`canvas-area checkerboard ${dragging ? 'drop-highlight' : ''}`}
         >
           <div
             style={{

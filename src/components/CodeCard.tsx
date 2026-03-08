@@ -53,14 +53,14 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   return (
     <div
       ref={cardRef}
-      className="code-card"
+      className="code-card card-frame"
       onClick={handleCardClick}
       style={{
         background: store.backgroundStyle,
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
-        boxShadow: store.showShadow ? '0 24px 64px rgba(0,0,0,0.55)' : 'none',
         width: cardWidth.width,
+        minWidth: '560px',
       }}
     >
       <div
@@ -70,15 +70,9 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
           overflow: 'hidden',
         }}
       >
-        {/* Window Chrome — 36px header */}
+        {/* Window Chrome — glass header */}
         {store.showWindowChrome && (
-          <div
-            style={{
-              background: theme.header,
-              height: '36px',
-            }}
-            className="flex items-center gap-2 px-3.5"
-          >
+          <div className="vscode-header">
             <div className="flex gap-2">
               <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
               <div className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
@@ -95,7 +89,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         )}
 
         {/* Code Area */}
-        <div className="relative" style={{ padding: '16px 20px', minHeight: '320px', minWidth: '400px' }}>
+        <div className="relative" style={{ padding: '16px 20px', minHeight: '220px', minWidth: '400px' }}>
           {/* Line number gutter border */}
           {store.showLineNumbers && (
             <div

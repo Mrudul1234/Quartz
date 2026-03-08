@@ -79,11 +79,19 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
   const outerY = EDGE_BLEED;
   const outerW = totalW - EDGE_BLEED * 2;
   const outerH = totalH - EDGE_BLEED * 2;
+  const exportBg = cardBg === 'transparent' ? theme.bg : cardBg;
+
+  // Fill full canvas first so rounded-corner transparency doesn't show as white in image viewers
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 0, totalW, totalH);
+  applyBackground(ctx, exportBg, totalW, totalH);
+  ctx.restore();
 
   // Draw outer background (card frame) and clip to rounded rect
   ctx.save();
   roundRect(ctx, outerX, outerY, outerW, outerH, config.borderRadius);
-  applyBackground(ctx, cardBg, outerW, outerH);
+  applyBackground(ctx, exportBg, outerW, outerH);
   ctx.restore();
 
   // Clip all subsequent drawing to the outer rounded rect

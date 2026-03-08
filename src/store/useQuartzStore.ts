@@ -69,6 +69,7 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   fontIndex: 0,
   cardWidthIndex: 1,
   showWatermark: false,
+  cardStyle: 'gradient',
   setCode: (code) => set({ code }),
   setLanguage: (language) => set({ language }),
   setThemeIndex: (themeIndex) => set({ themeIndex }),

@@ -88,4 +88,5 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   setFontIndex: (fontIndex) => set({ fontIndex }),
   setCardWidthIndex: (cardWidthIndex) => set({ cardWidthIndex }),
   toggleWatermark: () => set((s) => ({ showWatermark: !s.showWatermark })),
+  setCardStyle: (cardStyle) => set({ cardStyle }),
 }));

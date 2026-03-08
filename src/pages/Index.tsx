@@ -92,14 +92,14 @@ const Index = () => {
   }, [store.themeIndex, store.language, store.fontIndex, store.platformIndex, store.showLineNumbers, store.showWindowChrome, store.showShadow, store.cardWidthIndex]);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center" style={{ paddingTop: '28px', zIndex: 1 }}>
+    <main className="relative min-h-screen flex flex-col items-center" style={{ paddingTop: '28px', zIndex: 1 }}>
       {/* Logo — centred above container */}
-      <div className="quartz-logo-wrap">
-        <span className="quartz-logo cursor-default">
+      <header className="quartz-logo-wrap">
+        <h1 className="quartz-logo cursor-default">
           <span className="gem">◈</span>quartz
-        </span>
-        <span className="quartz-tagline">Crystallize your code.</span>
-      </div>
+        </h1>
+        <p className="quartz-tagline">Crystallize your code into beautiful screenshots.</p>
+      </header>
 
       {/* Main container — glassy */}
       <div className="app-container w-full flex flex-col">

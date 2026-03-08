@@ -11,13 +11,13 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   const store = useQuartzStore();
   const theme = themes[store.themeIndex];
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const codeContainerRef = useRef<HTMLDivElement>(null);
 
   const lines = store.code.split('\n');
 
   // Global paste handler
   useEffect(() => {
     const handler = (e: ClipboardEvent) => {
-      // Don't intercept if user is already in the textarea
       if (document.activeElement === textareaRef.current) return;
       const text = e.clipboardData?.getData('text');
       if (text) {
@@ -38,6 +38,16 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
   const handleCodeChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     store.setCode(e.target.value);
   };
+
+  // Sync scroll between textarea and rendered code
+  const handleScroll = useCallback(() => {
+    if (textareaRef.current && codeContainerRef.current) {
+      codeContainerRef.current.scrollTop = textareaRef.current.scrollTop;
+      codeContainerRef.current.scrollLeft = textareaRef.current.scrollLeft;
+    }
+  }, []);
+
+  const lineNumberWidth = `${Math.max(2, String(lines.length).length) * 0.7}em`;
 
   return (
     <div
@@ -80,13 +90,13 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
 
         {/* Code Area */}
         <div
-          className="relative cursor-text"
-          onClick={handleCardClick}
+          className="relative"
           style={{ padding: '16px 0' }}
         >
           {/* Rendered code overlay */}
           <div
-            className="font-code select-none pointer-events-none"
+            ref={codeContainerRef}
+            className="font-code select-none pointer-events-none overflow-hidden"
             style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight }}
           >
             {lines.map((line, i) => (
@@ -94,7 +104,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
                 {store.showLineNumbers && (
                   <span
                     className="select-none text-right mr-4 shrink-0"
-                    style={{ color: theme.comment, opacity: 0.5, width: `${Math.max(2, String(lines.length).length) * 0.7}em` }}
+                    style={{ color: theme.comment, opacity: 0.5, width: lineNumberWidth }}
                   >
                     {i + 1}
                   </span>
@@ -111,14 +121,26 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
             ))}
           </div>
 
-          {/* Hidden textarea for editing */}
+          {/* Editable textarea */}
           <textarea
             ref={textareaRef}
             value={store.code}
             onChange={handleCodeChange}
-            className="absolute inset-0 w-full h-full opacity-0 resize-none font-code cursor-text"
-            style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight }}
+            onScroll={handleScroll}
+            className="absolute inset-0 w-full h-full resize-none font-code p-0 m-0 border-none outline-none"
+            style={{
+              fontSize: `${store.fontSize}px`,
+              lineHeight: store.lineHeight,
+              color: 'transparent',
+              caretColor: theme.text,
+              background: 'transparent',
+              paddingLeft: store.showLineNumbers ? `calc(1rem + ${lineNumberWidth} + 1rem)` : '1rem',
+              paddingTop: '16px',
+              paddingRight: '1rem',
+              WebkitTextFillColor: 'transparent',
+            }}
             spellCheck={false}
+            onClick={(e) => e.stopPropagation()}
           />
         </div>
       </div>

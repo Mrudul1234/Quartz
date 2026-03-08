@@ -47,7 +47,7 @@ export const useQuartzStore = create<QuartzState>((set) => ({
   code: defaultCode,
   language: 'javascript',
   themeIndex: 0,
-  fontSize: 14,
+  fontSize: 13,
   padding: 40,
   borderRadius: 10,
   lineHeight: 1.65,

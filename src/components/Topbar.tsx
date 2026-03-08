@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuartzStore } from '@/store/useQuartzStore';
 import { themes, gradientPresets, platformPresets, codeFonts, cardWidthPresets, extMap } from '@/lib/themes';
-import { captureElement } from '@/lib/exportUtils';
+import { drawExportCanvas } from '@/lib/exportCanvas';
 import ActionButton from '@/components/ui/action-button';
 import { Download, Copy, ClipboardCheck, Settings, ExternalLink } from 'lucide-react';
 import {

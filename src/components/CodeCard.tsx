@@ -110,7 +110,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
           <div
             ref={codeContainerRef}
             className={`${font.className} select-none pointer-events-none`}
-            style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight, overflow: 'visible' }}
+            style={{ fontSize: `${store.fontSize}px`, lineHeight: store.lineHeight, overflow: 'auto' }}
           >
             {lines.map((line, i) => (
               <div key={i} className="flex" style={{ minHeight: `${store.fontSize * store.lineHeight}px` }}>

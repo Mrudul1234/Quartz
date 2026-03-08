@@ -122,3 +122,8 @@ export const extMap: Record<string, string> = {
   cs: 'c', rb: 'python', php: 'javascript', swift: 'javascript',
   kt: 'java', sh: 'python', html: 'html', css: 'css', json: 'javascript', md: 'javascript',
 };
+
+export const langExtMap: Record<string, string> = {
+  javascript: 'js', typescript: 'ts', python: 'py', rust: 'rs',
+  go: 'go', java: 'java', cpp: 'cpp', c: 'c', html: 'html', css: 'css',
+};

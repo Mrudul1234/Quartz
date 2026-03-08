@@ -54,37 +54,23 @@
   body {
     @apply text-foreground;
     font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-    background-color: #0d0d14;
+    background-color: #09090f;
     background-image:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(109, 40, 217, 0.15) 0%, transparent 55%),
-      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 70%);
+      radial-gradient(ellipse 70% 50% at 15% 20%,  rgba(124, 58, 237, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 85% 80%,  rgba(109, 40, 217, 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse 80% 30% at 50% 100%, rgba(167, 139, 250, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 40% at 90% 10%,  rgba(139, 92, 246, 0.12) 0%, transparent 50%);
     background-attachment: fixed;
     background-size: 100% 100%;
-    animation: bgPulse 12s ease-in-out infinite alternate;
+    animation: bgBreath 14s ease-in-out infinite alternate;
     min-height: 100vh;
   }
 }
 
-@keyframes bgPulse {
-  0% {
-    background-image:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(109, 40, 217, 0.15) 0%, transparent 55%),
-      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 70%);
-  }
-  50% {
-    background-image:
-      radial-gradient(ellipse 70% 70% at 30% 20%, rgba(139, 92, 246, 0.22) 0%, transparent 60%),
-      radial-gradient(ellipse 80% 40% at 70% 80%, rgba(124, 58, 237, 0.18) 0%, transparent 55%),
-      radial-gradient(ellipse 50% 50% at 60% 40%, rgba(167, 139, 250, 0.08) 0%, transparent 70%);
-  }
-  100% {
-    background-image:
-      radial-gradient(ellipse 90% 50% at 10% 30%, rgba(109, 40, 217, 0.20) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 60% at 90% 70%, rgba(167, 139, 250, 0.14) 0%, transparent 55%),
-      radial-gradient(ellipse 60% 30% at 40% 60%, rgba(124, 58, 237, 0.07) 0%, transparent 70%);
-  }
+@keyframes bgBreath {
+  0%   { background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%; }
+  50%  { background-size: 110% 110%, 95% 95%, 105% 105%, 115% 115%; }
+  100% { background-size: 105% 105%, 110% 110%, 98% 98%, 100% 100%; }
 }
 
 /* Noise grain overlay */
@@ -119,30 +105,325 @@ body::before {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Logo */
+/* ==================== LOGO ==================== */
+.quartz-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+
 .quartz-logo {
   font-family: 'Cal Sans', 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 1.35rem;
-  letter-spacing: -0.045em;
-  color: #c4b5fd;
-  transition: all 0.3s ease;
+  font-size: 2.6rem;
+  letter-spacing: -0.055em;
+  color: #ede9fe;
+  line-height: 1;
+  text-shadow:
+    0 0 20px rgba(167, 139, 250, 0.55),
+    0 0 60px rgba(124, 58, 237, 0.30),
+    0 0 120px rgba(109, 40, 217, 0.15);
+  transition: text-shadow 0.4s ease, letter-spacing 0.3s ease;
 }
+
 .quartz-logo:hover {
-  text-shadow: 0 0 20px rgba(167, 139, 250, 0.65);
-  filter: hue-rotate(25deg);
+  letter-spacing: -0.04em;
+  text-shadow:
+    0 0 28px rgba(167, 139, 250, 0.80),
+    0 0 80px rgba(124, 58, 237, 0.50),
+    0 0 160px rgba(109, 40, 217, 0.25);
+}
+
+.quartz-logo .gem {
+  display: inline-block;
+  animation: gemPulse 4s ease-in-out infinite;
+  margin-right: 6px;
+}
+
+@keyframes gemPulse {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px #a78bfa); }
+  50%      { opacity: 0.7; filter: drop-shadow(0 0 14px #7c3aed); }
 }
 
 .quartz-tagline {
   font-family: 'Bricolage Grotesque', serif;
   font-style: italic;
-  font-weight: 400;
-  font-size: 0.82rem;
-  color: #55556b;
-  letter-spacing: 0.01em;
+  font-weight: 300;
+  font-size: 0.9rem;
+  color: #6b6b8a;
+  letter-spacing: 0.03em;
 }
 
-/* Code card export-safe styles */
+/* ==================== APP CONTAINER ==================== */
+.app-container {
+  max-width: 920px;
+  margin: 0 auto;
+  background: rgba(13, 13, 20, 0.60);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(167, 139, 250, 0.10);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(124, 58, 237, 0.06) inset,
+    0 1px 0 rgba(167, 139, 250, 0.12) inset,
+    0 40px 100px rgba(0, 0, 0, 0.60),
+    0 0 80px rgba(124, 58, 237, 0.08);
+}
+
+/* ==================== TOOLBAR ==================== */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(19, 19, 31, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.toolbar::-webkit-scrollbar { display: none; }
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+.toolbar-btn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 7px;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  background: rgba(124, 58, 237, 0.06);
+  color: #c4b5fd;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.toolbar-btn:hover {
+  background: rgba(124, 58, 237, 0.18);
+  border-color: rgba(167, 139, 250, 0.35);
+  color: #ede9fe;
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.20);
+}
+
+.toolbar-btn:active {
+  background: rgba(124, 58, 237, 0.28);
+  transform: scale(0.97);
+}
+
+.toolbar-btn.active {
+  background: rgba(124, 58, 237, 0.25);
+  border-color: #7c3aed;
+}
+
+.toolbar-btn.export-primary {
+  background: rgba(124, 58, 237, 0.20);
+  border-color: rgba(167, 139, 250, 0.30);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-btn.export-primary:hover {
+  background: rgba(124, 58, 237, 0.35);
+  border-color: #a78bfa;
+  box-shadow:
+    0 0 16px rgba(124, 58, 237, 0.30),
+    0 0 32px rgba(124, 58, 237, 0.15);
+  color: #fff;
+}
+
+/* ==================== TOOLBAR SLIDER ==================== */
+.slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #6b6b8a;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.toolbar-slider {
+  -webkit-appearance: none;
+  width: 64px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(167, 139, 250, 0.20);
+  outline: none;
+  cursor: pointer;
+}
+
+.toolbar-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.6);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.toolbar-slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.9);
+}
+
+.toolbar-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.6);
+  border: none;
+  cursor: pointer;
+}
+
+.toolbar-slider::-moz-range-track {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(167, 139, 250, 0.20);
+}
+
+/* ==================== CANVAS AREA ==================== */
+.canvas-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 48px;
+  min-height: 320px;
+  max-height: 600px;
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.canvas-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(124, 58, 237, 0.40) 30%,
+    rgba(167, 139, 250, 0.55) 50%,
+    rgba(124, 58, 237, 0.40) 70%,
+    transparent
+  );
+}
+
+/* ==================== CARD FRAME ==================== */
+.card-frame {
+  border-radius: 16px;
+  position: relative;
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(124, 58, 237, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 32px 80px rgba(0, 0, 0, 0.35),
+    0 0 60px rgba(124, 58, 237, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+.card-frame:hover {
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.25),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 32px 80px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(124, 58, 237, 0.20);
+}
+
+/* ==================== VSCODE HEADER ==================== */
+.vscode-header {
+  height: 36px;
+  border-radius: 10px 10px 0 0;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 8px;
+}
+
+/* ==================== DROPDOWN ==================== */
+.dropdown-menu {
+  background: rgba(16, 16, 26, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(167, 139, 250, 0.14);
+  border-radius: 10px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.50),
+    0 0 0 1px rgba(124, 58, 237, 0.06) inset;
+  overflow: hidden;
+  animation: dropIn 0.15s ease;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #a1a1c2;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(124, 58, 237, 0.15);
+  color: #ede9fe;
+}
+
+.dropdown-item.active {
+  background: rgba(124, 58, 237, 0.22);
+  color: #c4b5fd;
+}
+
+/* ==================== DIMENSION BADGE ==================== */
+.dimension-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(167, 139, 250, 0.55);
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 5px 0 0;
+  user-select: none;
+  transition: color 0.3s ease;
+  animation: badgeFade 0.4s ease;
+}
+
+@keyframes badgeFade {
+  0%   { opacity: 0; transform: translateY(3px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== CODE CARD ==================== */
 .code-card pre {
   white-space: pre;
   word-break: normal;

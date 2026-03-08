@@ -128,17 +128,6 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
         ))}
       </select>
 
-      {/* Font */}
-      <select
-        value={store.fontIndex}
-        onChange={(e) => store.setFontIndex(Number(e.target.value))}
-        className="toolbar-btn"
-        style={{ paddingRight: '6px' }}
-      >
-        {codeFonts.map((f, i) => (
-          <option key={i} value={i}>{f.name}</option>
-        ))}
-      </select>
 
       <div className="toolbar-divider" />
 

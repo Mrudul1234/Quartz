@@ -113,7 +113,7 @@ const Index = () => {
 
         {/* Canvas area */}
         <div
-          className={`canvas-area checkerboard ${dragging ? 'drop-highlight' : ''}`}
+          className={`canvas-area canvas-grid-bg ${dragging ? 'drop-highlight' : ''}`}
         >
           <div
             style={{

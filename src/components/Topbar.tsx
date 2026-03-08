@@ -22,6 +22,11 @@ const cardStylePresets = [
   { id: 'glass', label: '🪟 Frosted Glass', desc: 'Blur + transparency' },
   { id: 'neon', label: '💜 Neon Outline', desc: 'Glowing border' },
   { id: 'flat', label: '◼ Minimal Flat', desc: 'Clean dark' },
+  { id: 'glossy-violet', label: '✨ Glossy Violet', desc: 'Polished purple' },
+  { id: 'glossy-midnight', label: '✨ Glossy Midnight', desc: 'Dark lacquer' },
+  { id: 'glossy-rose', label: '✨ Glossy Rose', desc: 'Deep crimson shine' },
+  { id: 'glossy-ocean', label: '✨ Glossy Ocean', desc: 'Deep sea gloss' },
+  { id: 'glossy-obsidian', label: '✨ Glossy Obsidian', desc: 'Black mirror' },
 ];
 
 const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
@@ -40,11 +45,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
     try {
       const el = cardRef.current;
       if (!el) return;
-      // Reset tilt transform before capture
-      const origTransform = el.style.transform;
-      el.style.transform = 'none';
       const canvas = await captureElement(el);
-      el.style.transform = origTransform;
       const mime = format === 'png' ? 'image/png' : 'image/jpeg';
       const quality = format === 'png' ? 1.0 : 0.95;
       const url = canvas.toDataURL(mime, quality);
@@ -62,10 +63,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
     try {
       const el = cardRef.current;
       if (!el) return;
-      const origTransform = el.style.transform;
-      el.style.transform = 'none';
       const canvas = await captureElement(el);
-      el.style.transform = origTransform;
       canvas.toBlob(async (blob) => {
         if (!blob) return;
         try {
@@ -127,8 +125,8 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       {/* Theme dropdown with search */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="toolbar-btn">
-            {themes[store.themeIndex]?.name ?? 'theme'}
+          <button className="toolbar-btn font-syne">
+            {themes[store.themeIndex]?.name ?? 'theme'} ▾
           </button>
         </PopoverTrigger>
         <PopoverContent className="dropdown-menu w-52 p-0 max-h-72 overflow-hidden">
@@ -137,8 +135,8 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
             placeholder="Search themes…"
             value={themeSearch}
             onChange={e => setThemeSearch(e.target.value)}
-            className="w-full bg-transparent border-b px-3 py-2 text-sm font-toolbar outline-none placeholder:text-[#55556b]"
-            style={{ borderColor: 'rgba(167,139,250,0.14)', color: '#c4b5fd' }}
+            className="w-full bg-transparent border-b px-3 py-2 text-sm outline-none placeholder:text-[#55556b]"
+            style={{ borderColor: 'rgba(167,139,250,0.14)', color: '#c4b5fd', fontFamily: "'DM Sans', sans-serif" }}
             autoFocus
           />
           <div className="overflow-y-auto max-h-56">
@@ -164,7 +162,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       <select
         value={store.language}
         onChange={(e) => store.setLanguage(e.target.value)}
-        className="toolbar-btn"
+        className="toolbar-btn font-syne"
         style={{ paddingRight: '6px' }}
       >
         <option value="auto">auto</option>
@@ -173,25 +171,17 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
         ))}
       </select>
 
-      {/* Card Style dropdown */}
-      <Popover>
-        <PopoverTrigger asChild>
-          <button className="toolbar-btn">Style ▾</button>
-        </PopoverTrigger>
-        <PopoverContent className="dropdown-menu w-52 p-0">
-          {cardStylePresets.map(preset => (
-            <button
-              key={preset.id}
-              onClick={() => store.setCardStyle(preset.id)}
-              className={`dropdown-item w-full text-left flex items-center justify-between ${store.cardStyle === preset.id ? 'active' : ''}`}
-              style={{ fontSize: '12px' }}
-            >
-              <span>{preset.label}</span>
-              <span className="preset-desc">{preset.desc}</span>
-            </button>
-          ))}
-        </PopoverContent>
-      </Popover>
+      {/* Font */}
+      <select
+        value={store.fontIndex}
+        onChange={(e) => store.setFontIndex(Number(e.target.value))}
+        className="toolbar-btn font-syne"
+        style={{ paddingRight: '6px' }}
+      >
+        {codeFonts.map((f, i) => (
+          <option key={i} value={i}>Aa {f.name}</option>
+        ))}
+      </select>
 
       <div className="toolbar-divider" />
 
@@ -209,7 +199,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
           className="toolbar-slider" />
       </div>
       <div className="slider-wrap">
-        <span>R</span>
+        <span>╭</span>
         <input type="range" min={0} max={20} value={store.borderRadius}
           onChange={(e) => store.setBorderRadius(Number(e.target.value))}
           className="toolbar-slider" />
@@ -238,13 +228,35 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       <select
         value={store.cardWidthIndex}
         onChange={(e) => store.setCardWidthIndex(Number(e.target.value))}
-        className="toolbar-btn"
+        className="toolbar-btn font-syne"
         style={{ paddingRight: '6px' }}
       >
         {cardWidthPresets.map((w, i) => (
-          <option key={i} value={i}>{w.name}</option>
+          <option key={i} value={i}>↔ {w.name}</option>
         ))}
       </select>
+
+      <div className="toolbar-divider" />
+
+      {/* Card Style dropdown */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <button className="toolbar-btn font-syne">Style ▾</button>
+        </PopoverTrigger>
+        <PopoverContent className="dropdown-menu w-56 p-0">
+          {cardStylePresets.map(preset => (
+            <button
+              key={preset.id}
+              onClick={() => store.setCardStyle(preset.id)}
+              className={`dropdown-item w-full text-left flex items-center justify-between ${store.cardStyle === preset.id ? 'active' : ''}`}
+              style={{ fontSize: '12px' }}
+            >
+              <span>{preset.label}</span>
+              <span className="preset-desc">{preset.desc}</span>
+            </button>
+          ))}
+        </PopoverContent>
+      </Popover>
 
       <div className="toolbar-divider" />
 
@@ -281,7 +293,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       <select
         value={store.platformIndex}
         onChange={(e) => store.setPlatformIndex(Number(e.target.value))}
-        className="toolbar-btn"
+        className="toolbar-btn font-syne"
         style={{ paddingRight: '6px' }}
       >
         {platformPresets.map((p, i) => (
@@ -292,7 +304,7 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       {/* Gist Import */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="toolbar-btn">↗ Gist</button>
+          <button className="toolbar-btn font-syne">↗ Gist</button>
         </PopoverTrigger>
         <PopoverContent className="dropdown-menu w-80 p-3">
           <p className="text-xs mb-2" style={{ color: '#a1a1c2' }}>Paste GitHub Gist URL</p>
@@ -361,12 +373,12 @@ const Topbar: React.FC<TopbarProps> = ({ cardRef }) => {
       {/* Right side — export actions */}
       <div className="flex items-center gap-1.5 flex-shrink-0">
         <ActionButton isPending={copyPending} onClick={copyToClipboard} variant="ghost" size="sm"
-          className="toolbar-btn">
+          className="toolbar-btn export-primary">
           {copied ? <ClipboardCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           <span>Copy</span>
         </ActionButton>
 
-        <button onClick={openTweet} className="toolbar-btn">
+        <button onClick={openTweet} className="toolbar-btn export-primary">
           <ExternalLink className="w-3 h-3" />
           <span>Tweet</span>
         </button>

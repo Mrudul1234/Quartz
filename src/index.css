@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:ital,opsz,wght@0,12..96,300;0,12..96,400;1,12..96,400&family=DM+Sans:wght@400;500&family=DM+Mono:wght@500&family=Syne:wght@600&family=IBM+Plex+Mono:wght@400&family=JetBrains+Mono:wght@400;500&family=Fira+Code:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Inconsolata:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:ital,opsz,wght@0,12..96,300;0,12..96,400;1,12..96,400&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&family=Syne:wght@500;600;700&family=IBM+Plex+Mono:wght@400&family=JetBrains+Mono:wght@400;500&family=Fira+Code:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Inconsolata:wght@400;500&display=swap');
 
 @font-face {
   font-family: 'Cal Sans';
@@ -87,17 +87,13 @@ body::before {
   display: none !important;
 }
 
-/* Checkerboard canvas background */
-.checkerboard {
-  background-image: 
-    linear-gradient(45deg, rgba(124, 58, 237, 0.06) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(124, 58, 237, 0.06) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(124, 58, 237, 0.06) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(124, 58, 237, 0.06) 75%);
-  background-size: 16px 16px;
-  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
-  background-color: #13131f;
-  border: 1px solid rgba(255,255,255,0.04);
+/* Canvas grid background */
+.canvas-grid-bg {
+  background-image:
+    linear-gradient(rgba(167,139,250,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: #0d0d1a;
 }
 
 /* Code font */
@@ -222,8 +218,8 @@ body::before {
 }
 
 .toolbar-btn {
-  height: 32px;
-  padding: 0 12px;
+  height: 30px;
+  padding: 0 11px;
   border-radius: 7px;
   border: 1px solid rgba(167, 139, 250, 0.15);
   background: rgba(124, 58, 237, 0.06);
@@ -231,6 +227,7 @@ body::before {
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.01em;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -350,11 +347,10 @@ select.toolbar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 36px 48px;
-  min-height: 320px;
+  padding: 40px 56px;
+  min-height: 300px;
   max-height: 600px;
   position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
   overflow: auto;
 }
 
@@ -385,8 +381,11 @@ select.toolbar-btn {
 
 /* ==================== CARD FRAME ==================== */
 .card-frame {
-  border-radius: 16px;
+  border-radius: 14px;
   position: relative;
+  overflow: visible !important;
+  transition: box-shadow 0.3s ease;
+}
 }
 
 /* ==================== CARD STYLE PRESETS ==================== */
@@ -399,7 +398,6 @@ select.toolbar-btn {
     0 32px 80px rgba(0, 0, 0, 0.35),
     0 0 60px rgba(124, 58, 237, 0.12);
 }
-
 .preset-gradient:hover {
   box-shadow:
     0 0 0 1px rgba(167, 139, 250, 0.25),
@@ -417,7 +415,6 @@ select.toolbar-btn {
     0 8px 32px rgba(0, 0, 0, 0.40),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
-
 .preset-glass:hover {
   box-shadow:
     0 8px 40px rgba(0, 0, 0, 0.50),
@@ -433,7 +430,6 @@ select.toolbar-btn {
     0 0 60px rgba(124, 58, 237, 0.15),
     inset 0 0 20px rgba(124, 58, 237, 0.04);
 }
-
 .preset-neon:hover {
   box-shadow:
     0 0 0 1px rgba(167, 139, 250, 0.25),
@@ -447,25 +443,45 @@ select.toolbar-btn {
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
 }
-
 .preset-flat:hover {
   box-shadow: 0 24px 72px rgba(0, 0, 0, 0.65);
 }
 
-/* ==================== 3D TILT ==================== */
-.tilt-card {
-  transform-style: preserve-3d;
-  will-change: transform;
-  cursor: default;
+/* Glossy Presets */
+.preset-glossy-violet {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.13) 0%, transparent 55%),
+    linear-gradient(135deg, #2d1b69 0%, #1a0533 100%);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
 }
-
-.tilt-glare {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 10;
-  transition: background 0.05s ease;
+.preset-glossy-midnight {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 50%),
+    linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
+}
+.preset-glossy-rose {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%),
+    linear-gradient(135deg, #4a0030 0%, #1a001a 100%);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
+}
+.preset-glossy-ocean {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%),
+    linear-gradient(135deg, #003654 0%, #001a2e 100%);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
+}
+.preset-glossy-obsidian {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 45%),
+    linear-gradient(160deg, #1a1a1a 0%, #0a0a0a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 32px 80px rgba(0, 0, 0, 0.35);
 }
 
 .preset-desc {
@@ -585,6 +601,37 @@ select.toolbar-btn {
 .font-settings-heading { font-family: 'Syne', sans-serif; font-weight: 600; }
 .font-dimension { font-family: 'IBM Plex Mono', monospace; }
 .font-footer { font-family: 'Bricolage Grotesque', serif; font-weight: 300; }
+.font-syne { font-family: 'Syne', sans-serif; font-weight: 500; }
+
+/* VS Code window */
+.vscode-win {
+  border-radius: 10px;
+  overflow: visible !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.55);
+}
+.vscode-body {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+.vscode-body pre,
+.vscode-body code {
+  white-space: pre !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  overflow: visible !important;
+  max-width: none !important;
+  width: max-content;
+  padding-right: 24px;
+}
+.vscode-body code span {
+  display: inline !important;
+  position: static !important;
+  transform: none !important;
+  white-space: pre !important;
+  overflow: visible !important;
+  max-width: none !important;
+  vertical-align: baseline !important;
+}
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {

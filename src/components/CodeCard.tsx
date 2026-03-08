@@ -122,7 +122,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
                     {i + 1}
                   </span>
                 )}
-                <code style={{ display: 'inline', whiteSpace: 'pre', overflow: 'visible', maxWidth: 'none', width: 'max-content', paddingRight: '24px' }}>
+                <code style={{ display: 'inline', whiteSpace: 'pre', overflow: 'hidden', maxWidth: '100%', paddingRight: '24px' }}>
                   {tokenizeLine(line, store.language).map((token, j) => (
                     <span key={j} style={{ color: getTokenColor(token.type, theme) }}>
                       {token.text}

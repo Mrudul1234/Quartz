@@ -38,11 +38,6 @@ The outer card frame has 9 visual styles:
 | **Frosted Glass** | Semi-transparent blur + transparency |
 | **Neon Outline** | Dark background with glowing violet border |
 | **Minimal Flat** | Clean `#111118` — no gradients, no noise |
-| **Glossy Violet** | Polished purple with diagonal light sheen |
-| **Glossy Midnight** | Dark lacquered navy |
-| **Glossy Rose** | Deep crimson with glass shine |
-| **Glossy Ocean** | Deep sea blue gloss |
-| **Glossy Obsidian** | Black mirror — no color, just shine |
 
 ### GitHub Gist Import
 Paste any public Gist URL and Quartz fetches the code, filename, and language automatically. No copy-paste needed. Supports `gist.github.com/username/id` format — no auth token required.

@@ -62,8 +62,8 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         padding: `${store.padding}px`,
         borderRadius: `${store.borderRadius}px`,
         width: cardWidth.width,
-        minWidth: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '700px',
-        overflow: 'visible',
+        maxWidth: '100%',
+        overflow: 'hidden',
       }}
     >
       <div

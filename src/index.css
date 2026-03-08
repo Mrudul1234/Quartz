@@ -222,8 +222,8 @@ body::before {
 }
 
 .toolbar-btn {
-  height: 32px;
-  padding: 0 12px;
+  height: 30px;
+  padding: 0 11px;
   border-radius: 7px;
   border: 1px solid rgba(167, 139, 250, 0.15);
   background: rgba(124, 58, 237, 0.06);
@@ -231,6 +231,7 @@ body::before {
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.01em;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;

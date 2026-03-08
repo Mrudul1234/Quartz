@@ -95,7 +95,7 @@ const CodeCard: React.FC<CodeCardProps> = ({ cardRef }) => {
         )}
 
         {/* Code Area */}
-        <div className="vscode-body relative" style={{ padding: '18px 28px 22px 18px', minHeight: '280px', minWidth: '380px' }}>
+        <div className="vscode-body relative" style={{ padding: '18px 28px 22px 18px', minHeight: '120px' }}>
           {store.showLineNumbers && (
             <div
               className="absolute top-0 bottom-0"

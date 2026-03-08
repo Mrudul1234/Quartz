@@ -195,8 +195,8 @@ body::before {
 .toolbar {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 10px 16px;
   background: rgba(19, 19, 31, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);

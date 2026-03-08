@@ -39,6 +39,7 @@ interface QuartzState {
   setFontIndex: (i: number) => void;
   setCardWidthIndex: (i: number) => void;
   toggleWatermark: () => void;
+  setCardStyle: (style: string) => void;
 }
 
 const defaultCode = `const crystallize = (idea) => {

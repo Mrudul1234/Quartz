@@ -87,17 +87,13 @@ body::before {
   display: none !important;
 }
 
-/* Checkerboard canvas background */
-.checkerboard {
-  background-image: 
-    linear-gradient(45deg, rgba(124, 58, 237, 0.06) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(124, 58, 237, 0.06) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(124, 58, 237, 0.06) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(124, 58, 237, 0.06) 75%);
-  background-size: 16px 16px;
-  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
-  background-color: #13131f;
-  border: 1px solid rgba(255,255,255,0.04);
+/* Canvas grid background */
+.canvas-grid-bg {
+  background-image:
+    linear-gradient(rgba(167,139,250,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: #0d0d1a;
 }
 
 /* Code font */

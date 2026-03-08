@@ -58,19 +58,22 @@ export async function drawExportCanvas(config: ExportConfig): Promise<HTMLCanvas
     if (w > maxLineWidth) maxLineWidth = w;
   }
 
-  // Card dimensions
-  const codeW = maxLineWidth + GUTTER_W + H_PAD * 2 + 48;
-  const codeH = tokenizedLines.length * LINE_H + V_PAD * 2 + CHROME_H + (showWatermark ? 24 : 0);
+  // Card dimensions (rounded up to avoid sub-pixel cropping)
+  const codeW = Math.ceil(maxLineWidth + GUTTER_W + H_PAD * 2 + 48);
+  const codeH = Math.ceil(tokenizedLines.length * LINE_H + V_PAD * 2 + CHROME_H + (showWatermark ? 24 : 0));
   const FRAME_P = padding;
-  const totalW = codeW + FRAME_P * 2;
-  const totalH = codeH + FRAME_P * 2;
+  const EDGE_BLEED = 2; // safety margin so rounded edges/shadows are never clipped
+  const totalW = codeW + FRAME_P * 2 + EDGE_BLEED * 2;
+  const totalH = codeH + FRAME_P * 2 + EDGE_BLEED * 2;
 
-  // Create canvas
+  // Create canvas with integer backing size
   const canvas = document.createElement('canvas');
-  canvas.width = totalW * SCALE;
-  canvas.height = totalH * SCALE;
+  const canvasWidth = Math.ceil(totalW * SCALE);
+  const canvasHeight = Math.ceil(totalH * SCALE);
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
   const ctx = canvas.getContext('2d')!;
-  ctx.scale(SCALE, SCALE);
+  ctx.scale(canvasWidth / totalW, canvasHeight / totalH);
 
   // Draw outer background (card frame) and clip to rounded rect
   ctx.save();
